@@ -1,0 +1,3 @@
+export const SET_PHIM  = "SET_PHIM";
+export const SET_CURRENT_MOVIE = "SET_CURRENT_MOVIE";
+export const SET_COMMINGSOON_MOVIE = "SET_COMMINGSOON_MOVIE";
