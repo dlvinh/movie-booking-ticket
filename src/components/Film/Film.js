@@ -1,7 +1,8 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 export default function Film(props) {
-    const { tenPhim, hinhAnh, moTa } = props.film;
+    const { tenPhim, hinhAnh, moTa,maPhim } = props.film;
+    console.log ("film",maPhim)
     const backgroundStyle = {
         backgroundImage: `url(${hinhAnh})`,
         backgroundPosition: "center",
@@ -21,7 +22,7 @@ export default function Film(props) {
                 <div className="flex flex-col flex-1 p-6">
                     <NavLink to="/" className="text-lg tracking-wider uppercase hover:underline dark:text-violet-400 h-16" >{tenPhim}</NavLink>
                     <div className="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-coolGray-400">
-                        <button className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md dark:bg-violet-400 dark:text-coolGray-900">BUY TICKET</button>
+                        <NavLink to={`/detail/${maPhim}`} className="flex items-center justify-center w-full p-3 font-semibold tracking-wide rounded-md dark:bg-violet-400 dark:text-coolGray-900 text-white">BUY TICKET</NavLink>
                     </div>
                 </div>
             </article>

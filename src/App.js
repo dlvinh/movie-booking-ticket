@@ -10,6 +10,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Detail from './pages/Detail/Detail';
 
 
 // DIEU HUONG CAC THANH CONG CU ROUTE TOI CAC PAGE KHAC
@@ -27,6 +28,9 @@ function App() {
 
         {/* ROUTE TO NEWS */}
         <HomeTemplate exact path='/news' DestinationComponent={News}></HomeTemplate>
+
+        {/* ROUTE TO MOVIE DETAIL BY MOVIE ID */}
+        <HomeTemplate exact path='/detail/:id' DestinationComponent={Detail}></HomeTemplate>
 
 
         {/* ROUTE TO LOGIN */}

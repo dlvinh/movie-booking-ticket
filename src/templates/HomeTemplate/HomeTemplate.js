@@ -16,7 +16,7 @@ export const HomeTemplate = (props)=> {
         console.log("propsRoute",propsRoute); // let see what is it 
         return <React.Fragment>
            <Header></Header>
-           <CarouselLayout propsRoute></CarouselLayout>
+          
             {/* THIS IS DYNAMIC PART THAT can be changede according to the props that passed among  */}
             <DestinationComponent propsRoute></DestinationComponent>
            <Footer></Footer>
