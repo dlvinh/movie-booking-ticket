@@ -1,5 +1,6 @@
+import { map } from "lodash";
 import { quanLyPhimService } from "../../services/QuanLyPhimService"
-import { SET_PHIM } from "./types/QuanLyPhimType";
+import { SET_FILM_DETAIL, SET_PHIM } from "./types/QuanLyPhimType";
 
 export const layDanhSachPhimAction = ()=>{
     return (dispatch)=>{
@@ -19,6 +20,23 @@ export const layDanhSachPhimAction = ()=>{
             })
         } catch (error) {
             console.log("error",error)
+        }
+    }
+}
+
+export const layThongTinLichChieuPhimAction =(maPhim)=>{
+    return async (dispatch)=>{
+        try {
+            let {status, data} = await quanLyPhimService.layThongTinLichChieuPhim(maPhim);
+            if (status === 200){
+                // dispatch len reducer
+                dispatch({
+                    type: SET_FILM_DETAIL,
+                    data: data.content
+                })
+            }
+        }catch(err){
+            console.log(err)
         }
     }
 }

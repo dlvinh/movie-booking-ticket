@@ -1,10 +1,10 @@
-import { SET_COMMINGSOON_MOVIE, SET_CURRENT_MOVIE, SET_PHIM } from "../../actions/types/QuanLyPhimType";
+import { SET_COMMINGSOON_MOVIE, SET_CURRENT_MOVIE, SET_FILM_DETAIL, SET_PHIM } from "../../actions/types/QuanLyPhimType";
 
 const stateDefault = {
     DefaultarrFilm: [],
-    arrFilms:[]
+    arrFilms:[],
+    filmDetail:"",
 }
-
 export const QuanLyPhimReducer = (state = stateDefault, action)=>{
     switch(action.type){
         case SET_PHIM: {
@@ -26,6 +26,11 @@ export const QuanLyPhimReducer = (state = stateDefault, action)=>{
             state.arrFilms = commingsoon
             return {...state};
         }
+        case SET_FILM_DETAIL:{
+            state.filmDetail = action.data;
+            return {...state};
+        }
+        
         default: return {...state};
     }
 }

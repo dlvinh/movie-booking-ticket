@@ -18,7 +18,7 @@ export const HomeTemplate = (props)=> {
            <Header></Header>
           
             {/* THIS IS DYNAMIC PART THAT can be changede according to the props that passed among  */}
-            <DestinationComponent propsRoute></DestinationComponent>
+            <DestinationComponent propsRoute={propsRoute}></DestinationComponent>
            <Footer></Footer>
         </React.Fragment>
     }}> 

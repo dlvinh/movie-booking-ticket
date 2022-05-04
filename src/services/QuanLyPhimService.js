@@ -12,6 +12,9 @@ export class QuanLyPhimService extends BaseService{
     layDangSachPhim=()=>{
         return this.get(`/api/QuanLyPhim/LayDanhSachPhim?maNhom=${GROUPID}`);
     }
+    layThongTinLichChieuPhim=(maPhim)=>{
+        return this.get(`/api/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`)
+    }
 }
 
 export const quanLyPhimService = new QuanLyPhimService()

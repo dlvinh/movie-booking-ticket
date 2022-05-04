@@ -2,7 +2,7 @@ import React from 'react'
 import {NavLink} from 'react-router-dom'
 export default function Film(props) {
     const { tenPhim, hinhAnh, moTa,maPhim } = props.film;
-    console.log ("film",maPhim)
+   
     const backgroundStyle = {
         backgroundImage: `url(${hinhAnh})`,
         backgroundPosition: "center",
