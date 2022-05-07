@@ -11,8 +11,14 @@ import Register from './pages/Register/Register';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Detail from './pages/Detail/Detail';
+import Checkout from './pages/Checkout/Checkout';
+// import CheckoutTemplate from './templates/HomeTemplate/CheckoutTemplate/CheckoutTemplate';
+import { lazy, Suspense } from 'react';
+import UserTemplate from './templates/UserTemplate/UserTemplate';
+import { LoginTemplate } from './templates/LoginTemplate/LoginTemplate';
 
-
+// NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
+const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
 // DIEU HUONG CAC THANH CONG CU ROUTE TOI CAC PAGE KHAC
 export const history = createBrowserHistory();
 function App() {
@@ -34,10 +40,17 @@ function App() {
 
 
         {/* ROUTE TO LOGIN */}
-        <Route exact path='/login'> <Login></Login></Route>
+        <LoginTemplate exact path='/login' DestinationComponent={Login}></LoginTemplate>
 
         {/* ROUTE TO Resigter */}
         <Route exact path='/register'> <Register></Register></Route>
+
+        {/* ROUTE TO CHECKOUT */}
+        <Suspense fallback={<h1>LOADING...</h1>}>
+          <CheckoutTemplate exact path='/checkout/:maLichChieu' DestinationComponent={Checkout} ></CheckoutTemplate>
+        </Suspense>
+
+
       </Switch>
 
     </Router>

@@ -881,12 +881,14 @@
 
   /* CUSTOM CSS */
 .detail_container{
-    padding: 5rem 15rem;
+    margin: 5rem 15rem;
 }
 .detail_movieInfo{
     padding: 4rem 0 2rem 1rem;
 }
 .movie_schedule_container{
     background-color: white;
+    margin-top: 2rem;
+    padding: 3rem;
     color: black
 }

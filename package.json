@@ -9,6 +9,7 @@
     "@tsamantanis/react-glassmorphism": "^1.1.2",
     "antd": "^4.20.1",
     "axios": "^0.27.2",
+    "formik": "^2.2.9",
     "history": "^4.10.0",
     "html-react-parser": "^1.4.12",
     "lodash": "^4.17.21",
@@ -19,10 +20,12 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.1",
     "react-slick": "^0.29.0",
+    "react-toastify": "^9.0.1",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
