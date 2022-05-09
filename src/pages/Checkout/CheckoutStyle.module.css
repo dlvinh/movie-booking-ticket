@@ -1,0 +1,47 @@
+#shadowScreen{
+        border-bottom: 50px solid #8282824d;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+
+}
+#shadowScreen::after{
+    content: "Screen";
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+    color: #a6a6a6;
+}
+#screen{
+    width: 100%;
+    height: 10px;
+    background-color: black;
+    margin: 0 auto;
+}   
+
+/* Normal seat */
+.ghe{ 
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+    background-color: rgb(184, 184, 184);
+    border: none;
+    color: white;
+}
+.gheDaDat{
+    background-color: rgb(240, 50, 50);
+    cursor: no-drop;
+    width: 30px;
+    height: 30px;
+}
+.gheDangDat{
+    background-color: rgb(119, 245, 119) !important;
+}
+
+.gheVip{
+    background-color: rgb(248, 176, 42);
+}

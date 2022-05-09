@@ -58,7 +58,7 @@ export default function Detail(props) {
                                 </div>
                                 <div className='timetable grid grid-cols-6 gap-6 mt-2'>
                                     {cumRap?.lichChieuPhim?.map((lichChieu, index) => {
-                                        return <NavLink to={`/checkout/${lichChieu.maLichChieu}`} key={index} className="text-center text-lg px-2 py-2 font-semibold rounded bg-gray-800 text-white active">
+                                        return <NavLink to={`/checkout/${lichChieu.maLichChieu}`} key={index} className="text-center px-2 py-2 font-semibold rounded bg-gray-800 text-white active">
                                             {moment(lichChieu?.ngayChieuGioChieu).format("LT")}
                                         </NavLink>
                                     })}

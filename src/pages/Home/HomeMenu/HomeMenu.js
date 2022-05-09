@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 const { TabPane } = Tabs;
 function HomeMenu(props) {
-    console.log("HomeMenuprops", props)
+    //console.log("HomeMenuprops", props)
     const { hethongRapChieu } = props;
     const renderTheaterTabPane = () => {
         return hethongRapChieu.map((item, index) => {
@@ -38,7 +38,7 @@ function HomeMenu(props) {
                                                 {/* Load lich chieu */}
                                                 <div className='grid grid-cols-6 gap-6'>
                                                     {film.lstLichChieuTheoPhim?.slice(0,12).map((time, index) => {
-                                                        return <NavLink className='px-2 py-2 font-semibold rounded bg-gray-800 text-white ' key={index} to="">
+                                                        return <NavLink className='px-2 py-2 font-semibold rounded bg-gray-800 text-white ' key={index} to={`checkout/${time.maLichChieu}`}>
                                                             {moment(time.ngayChieuGioChieu).format("hh:mm A")}
                                                         </NavLink>
                                                     })}
