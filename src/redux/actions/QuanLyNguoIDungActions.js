@@ -3,7 +3,7 @@ import { history } from "../../App";
 import { quanLyNguoiDung } from "../../services/QuanLyNguoiDung"
 import { openNotificationWithIcon } from "../../util/Notification/Notification";
 import { TOKEN, USER_LOGIN, USER_SESSION } from "../../util/setting.js/config";
-import { LOGIN } from "./types/QuanLyNguoiDung";
+import { LOGIN, SAVE_THONG_TIN_TAI_KHOAN } from "./types/QuanLyNguoiDung";
 
 export const dangNhapAction = (user) => {
     return async (dispatch) => {
@@ -20,7 +20,7 @@ export const dangNhapAction = (user) => {
                     type: LOGIN,
                     data: data.content
                 });
-                console.log("history",history)
+                console.log("history", history)
                 history.goBack();
             }
         } catch (error) {
@@ -30,4 +30,24 @@ export const dangNhapAction = (user) => {
         }
 
     }
+}
+
+export const layThongTinTaiKhoanAction = () => {
+    return async (dispatch) => {
+        try {
+            let response = await quanLyNguoiDung.layThongTinTaiKhoan();
+            let { data, status } = response;
+            if (status === 200){
+                console.log("thongTinTaiKhoan",data.content);
+                dispatch({
+                    type: SAVE_THONG_TIN_TAI_KHOAN,
+                    data: data.content
+                })
+            }
+        } catch (error) {
+            let { data } = error.response;
+            openNotificationWithIcon("error", "Error", data.content, "top");
+        }
+    }
+
 }

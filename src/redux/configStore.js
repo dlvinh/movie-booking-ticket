@@ -1,6 +1,7 @@
 import {applyMiddleware, combineReducers,createStore} from 'redux';
 import thunk from 'redux-thunk'
 import { CarouselReducer } from './reducers/Carousel/CarouselReducer';
+import { LoadingReducer } from './reducers/LoadingReducer/LoadingReducer';
 import { QuanlyDatVeReducer } from './reducers/QuanLyDatVe/QuanLyDatVeReducer';
 import { QuanLyNguoiDungReducer } from './reducers/QuanLyNguoiDung/QuanLyNguoiDungReducer';
 import { QuanLyPhimReducer } from './reducers/QuanLyPhim/QuanLyPhimReducer';
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
     QuanLyPhimState: QuanLyPhimReducer,
     QuanLyRapState: QuanLyRapReducer,
     QuanlyNguoiDungState : QuanLyNguoiDungReducer,
-    QuanLyDatVeState: QuanlyDatVeReducer
+    QuanLyDatVeState: QuanlyDatVeReducer,
+    LoadingState: LoadingReducer
 })
 
 // vi createStore is deprecated => replace with configureStore => recommened 

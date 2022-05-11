@@ -1,1 +1,2 @@
 export const LOGIN = "LOGIN";
+export const SAVE_THONG_TIN_TAI_KHOAN = "SAVE_THONG_TIN_TAI_KHOAN"

@@ -16,6 +16,7 @@ import Checkout from './pages/Checkout/Checkout';
 import { lazy, Suspense } from 'react';
 import UserTemplate from './templates/UserTemplate/UserTemplate';
 import { LoginTemplate } from './templates/LoginTemplate/LoginTemplate';
+import LoadingAnimation from './util/Loading/LoadingAnimation';
 
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
@@ -23,7 +24,9 @@ const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/Checkou
 export const history = createBrowserHistory();
 function App() {
   return (
+    
     <Router history={history}>
+      <LoadingAnimation></LoadingAnimation>
       <Switch>
         {/* ROUTE TO HOME COMPONENT */}
         <HomeTemplate exact path="/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
