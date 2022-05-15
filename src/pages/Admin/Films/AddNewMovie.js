@@ -15,6 +15,7 @@ import { useFormik } from 'formik';
 import moment from 'moment';
 export default function AddNewMovie(props) {
     const [componentSize, setComponentSize] = useState('default');
+    const [imgSrc, setImgSrc] = useState(null)
     const formik = useFormik({
         initialValues: {
             // cac fields API need
@@ -41,6 +42,24 @@ export default function AddNewMovie(props) {
         return (value)=>{
             formik.setFieldValue(name,value)
         }
+    }
+
+    // Xu ly upload image 
+    const handleFileUpload = (e)=>{
+        let file = e.target.files[0]; // lay file dau tien
+        console.log("file",file);
+        if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg"){
+            let reader = new FileReader();
+            reader.readAsDataURL(file);// tu file, reader se tao url cho file hinh anh theo dang base 64
+            reader.onload = (e)=>{
+                //console.log(e.target.result) //
+                setImgSrc(e.target.result);
+            }
+            formik.setFieldValue("hinhAnh",file);
+        }
+        // tao doi tuogn de doc file 
+       
+
     }
     return (
         <div className='bg-white m-4'>
@@ -90,7 +109,9 @@ export default function AddNewMovie(props) {
                     }} min="1" max='10'/>
                 </Form.Item>
                 <Form.Item label="Image">
-                    <input type="file" />
+                    <input type="file" onChange={handleFileUpload} accept="image/png, image/jpeg, image/gif, image/jpg"/>
+                    <br/>
+                    <img width="150px" height="150px" src={imgSrc} alt="..."/>
                 </Form.Item>
                 <div className='text-center'>
                     <Button className='w-1/4 rounded-md' type='primary' htmlType='submit'>Save</Button>
