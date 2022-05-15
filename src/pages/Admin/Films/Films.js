@@ -9,6 +9,7 @@ import { Fragment } from 'react/cjs/react.production.min';
 import { NavLink } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
 import { DeleteOutlined } from '@ant-design/icons';
+import { history } from '../../../App';
 const data = [
     {
         "maPhim": 10534,
@@ -140,7 +141,9 @@ export default function Films() {
                     <Input.Search size="large" placeholder="input here" enterButton />
                 </AutoComplete>
                 <div className='func_group flex justify-end'>
-                    <Button type='primary' size='medium'>Add Movie</Button>
+                    <Button type='primary' size='medium' onClick={()=>{
+                        history.push('/admin/films/addnewmovie')
+                    }}>Add Movie</Button>
 
                 </div>
                 {/* Render Table */}
