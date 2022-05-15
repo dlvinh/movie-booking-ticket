@@ -1,8 +1,71 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom'
-
+import { Login } from '../../../../pages/Login/Login';
+import { USER_LOGIN } from '../../../../util/setting.js/config';
+import _ from "lodash"
+import { Dropdown, Menu, message, Popconfirm } from 'antd';
 export default function Header(props) {
     const history = useHistory();
+    const { userLogin } = useSelector(state => state.QuanlyNguoiDungState);
+    const dropDownHandler = ({ key }) => {
+        // message.info(`Click on item ${key}`);
+ 
+    };
+        const menu = (
+            <Menu
+                onClick={dropDownHandler}
+                items={[
+                    {
+                        label: (
+                            <p>Profile</p>
+                        ),
+                        key: "profile"
+                    },
+
+                    {
+                        label: (
+                            <Popconfirm placement="top" title="Do you want to sign out" onConfirm={()=>{
+                                localStorage.clear();
+                                // refresh whole pages to refresh all store in redux
+                                window.location.reload( );
+                            }} okText="Yes" cancelText="No">
+                            <p>Sign Out</p>
+                        </Popconfirm>
+                        ),
+                        key: 'signOut'
+                    },
+                ]}
+            />
+        );
+    //console.log({ userLogin })
+
+    const loginValidation = () => {
+        if (!_.isEmpty(userLogin)) {
+            return <>
+                <Dropdown overlay={menu}  trigger={['click']}>
+                    <div  className="items-center flex cursor-pointer">
+                        <img src="https://picsum.photos/50" className='rounded-full' />
+                        <p className='m-0 ml-2'>Hello, {userLogin.hoTen}</p>
+                    </div>
+
+                </Dropdown>
+
+            </>
+
+        }
+        return <>
+            <button className="px-8 py-3 font-semibold rounded bg-gray-500 mx-1" onClick={() => {
+                history.push("/login");
+            }}>Login</button>
+            <button className="px-8 py-3 font-semibold rounded bg-gray-500 mx-1" onClick={() => {
+                history.push("/register");
+            }}>Register</button>
+        </>
+
+
+    }
+
     return (
         <header className="p-4 dark:bg-coolGray-800 dark:text-coolGray-100 relative z-10 bg-gray-700 text-white ">
             <div className=" container flex justify-between h-16 mx-auto md:justify-center md:space-x-8">
@@ -38,10 +101,8 @@ export default function Header(props) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <div className="items-center flex-shrink-0 hidden lg:flex absolute" style={{"top": "25%", "right":"5%"}}>
-                    <button className="px-8 py-3 font-semibold rounded bg-gray-500" onClick={() => {
-                        history.push("/login")
-                    }}>Log in</button>
+                <div className="items-center flex-shrink-0 hidden lg:flex absolute" style={{ "top": "25%", "right": "5%" }}>
+                    {loginValidation()}
                 </div>
             </div>
 

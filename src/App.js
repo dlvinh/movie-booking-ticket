@@ -17,21 +17,29 @@ import { lazy, Suspense } from 'react';
 import UserTemplate from './templates/UserTemplate/UserTemplate';
 import { LoginTemplate } from './templates/LoginTemplate/LoginTemplate';
 import LoadingAnimation from './util/Loading/LoadingAnimation';
+import { AdminTemplate } from './templates/AdminTemplate/AdminTemplate';
+import Dashboard from './pages/Admin/Dashboard/Dashboard';
+import Films from './pages/Admin/Films/Films';
 
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
 // DIEU HUONG CAC THANH CONG CU ROUTE TOI CAC PAGE KHAC
 export const history = createBrowserHistory();
+
+
 function App() {
   return (
-    
+
     <Router history={history}>
       <LoadingAnimation></LoadingAnimation>
       <Switch>
         {/* ROUTE TO HOME COMPONENT */}
         <HomeTemplate exact path="/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
         <HomeTemplate exact path="/home" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
-
+        {/* ADMIN */}
+        <AdminTemplate exact path='/admin' DestinationComponent={Dashboard}></AdminTemplate>
+        <AdminTemplate exact path='/admin/users' DestinationComponent={Dashboard} ></AdminTemplate>
+        <AdminTemplate exact path='/admin/films' DestinationComponent={Films} ></AdminTemplate>
         {/* ROUTE TO CONTACT */}
         <HomeTemplate exact path='/contact' DestinationComponent={Contact}></HomeTemplate>
 
@@ -45,13 +53,15 @@ function App() {
         {/* ROUTE TO LOGIN */}
         <LoginTemplate exact path='/login' DestinationComponent={Login}></LoginTemplate>
 
-        {/* ROUTE TO Resigter */}
-        <Route exact path='/register'> <Register></Register></Route>
+        {/* ROUTE TO Register */}
+        <LoginTemplate exact path='/register' DestinationComponent={Register}></LoginTemplate>
 
         {/* ROUTE TO CHECKOUT */}
         <Suspense fallback={<h1>LOADING...</h1>}>
           <CheckoutTemplate exact path='/checkout/:maLichChieu' DestinationComponent={Checkout} ></CheckoutTemplate>
         </Suspense>
+
+
 
 
       </Switch>

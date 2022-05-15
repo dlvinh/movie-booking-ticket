@@ -1,7 +1,7 @@
 import { HIDE_LOADING, SHOW_LOADING } from "../../actions/types/LoadingType"
 
 const initialState = {
-    isShow: true
+    isShow: false
 }
 
 export const LoadingReducer = (state = initialState, action)=>{

@@ -11,7 +11,7 @@ import {
 } from '@ant-design/icons';
 import { DAT_VE } from '../../redux/actions/types/QuanLyDatVe'
 import _ from 'lodash';
-import { Tabs } from 'antd';
+import { Dropdown, Popconfirm, Tabs,Menu } from 'antd';
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe'
 import { layThongTinLichChieuPhimAction } from '../../redux/actions/QuanLyPhimActions'
 import { layThongTinTaiKhoanAction } from '../../redux/actions/QuanLyNguoIDungActions'
@@ -22,7 +22,7 @@ import { CHUYEN_TAB_ACTION } from '../../redux/actions/ChuyenTabAction'
 export function Checkout(props) {
   let maLichChieu = props.propsRoute.match.params.maLichChieu;
   const { userLogin } = useSelector(state => state.QuanlyNguoiDungState);
-  const { chiTietPhongVe, danhSachGheDangDat} = useSelector(state => state.QuanLyDatVeState);
+  const { chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat } = useSelector(state => state.QuanLyDatVeState);
   const { thongTinPhim, danhSachGhe } = chiTietPhongVe;
   const dispacth = useDispatch();
   useEffect(() => {
@@ -40,7 +40,9 @@ export function Checkout(props) {
       let gheStyle = "";
       let gheDaDatStyle = "";
       let gheDangDatStyle = "";
+      let gheKhachDat = ""
       let indexgheDangDat = danhSachGheDangDat.findIndex(ghe => ghe.maGhe === seat.maGhe);
+      let indexgheKhachDat = danhSachGheKhachDat.findIndex(gheKD => gheKD.maGhe === seat.maGhe);
       if (indexgheDangDat != -1) {
         gheDangDatStyle = checkoutStyle.gheDangDat;
       }
@@ -49,7 +51,9 @@ export function Checkout(props) {
       }
       if (seat.daDat == true) {
         gheDaDatStyle = checkoutStyle.gheDaDat;
-
+      }
+      if (indexgheKhachDat != -1) {
+        gheKhachDat = checkoutStyle.gheKhachDat;
       }
       return <React.Fragment key={index}>
         <button key={index}
@@ -59,7 +63,7 @@ export function Checkout(props) {
               data: seat
             })
           }}
-          disabled={seat.daDat} className={checkoutStyle.ghe + " " + gheStyle + " " + gheDaDatStyle + " " + gheDangDatStyle}>{seat.daDat ? <UserOutlined style={{ fontSize: "30px" }} /> : seat.stt}</button>
+          disabled={seat.daDat} className={checkoutStyle.ghe + " " + gheStyle + " " + gheDaDatStyle + " " + gheDangDatStyle + " " + gheKhachDat}>{seat.daDat ? <UserOutlined style={{ fontSize: "30px" }} /> : gheKhachDat !== "" ? <UserOutlined style={{ fontSize: "30px" }} /> : seat.stt}</button>
         {(index + 1) % 16 == 0 ? <br /> : ""}
       </React.Fragment>
 
@@ -114,8 +118,13 @@ export function Checkout(props) {
               thongTinDatVe.danhSachVe = danhSachGheDangDat;
               let action = datVeAction(thongTinDatVe);
               dispacth(action)
-            }} className='bg-green-500 text-white w-full text-center py-3 font-bold cursor-pointer'>
+            }} className='bg-green-500 text-white w-full text-center py-3 font-bold cursor-pointer mb-4'>
               Buy Ticket
+            </button>
+            <button onClick={() => {
+              history.push("/home")
+            }} className='bg-red-500 text-white w-full text-center py-3 font-bold cursor-pointer'>
+              Cancel
             </button>
           </div>
         </div>
@@ -125,10 +134,49 @@ export function Checkout(props) {
 }
 
 const { TabPane } = Tabs;
+
 export default function (props) {
-  const { tabActive} = useSelector(state => state.QuanLyDatVeState);
-  const dispacth =useDispatch();
-  return <Tabs defaultActiveKey="1" activeKey={tabActive.toString()} type="card" onTabClick={(e)=>{
+  const dropDownHandler = ({ key }) => {
+    // message.info(`Click on item ${key}`);
+
+  };
+  const menu = (
+    <Menu
+      onClick={dropDownHandler}
+      items={[
+        {
+          label: (
+            <p>Profile</p>
+          ),
+          key: "profile"
+        },
+
+        {
+          label: (
+            <Popconfirm placement="top" title="Do you want to sign out" onConfirm={() => {
+              localStorage.clear();
+              // refresh whole pages to refresh all store in redux
+              window.location.reload();
+            }} okText="Yes" cancelText="No">
+              <p>Sign Out</p>
+            </Popconfirm>
+          ),
+          key: 'signOut'
+        },
+      ]}
+    />
+  );
+  const { tabActive } = useSelector(state => state.QuanLyDatVeState);
+  const { userLogin } = useSelector(state => state.QuanlyNguoiDungState);
+  const operations =    <Dropdown overlay={menu} trigger={['click']}>
+      <div className="items-center flex cursor-pointer mr-16">
+        <img src="https://picsum.photos/50" className='rounded-full' />
+        <p className='m-0 ml-2'>Hello, {userLogin.hoTen}</p>
+      </div>
+    </Dropdown>
+
+  const dispacth = useDispatch();
+  return <Tabs size='large' tabBarExtraContent={operations} defaultActiveKey="1" activeKey={tabActive.toString()} type="card" onTabClick={(e) => {
     dispacth(CHUYEN_TAB_ACTION(e))
   }}>
     <TabPane tab="01 CHON GHE THANH TOAN" key="1">

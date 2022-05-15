@@ -43,3 +43,7 @@
 .gheVip{
     background-color: rgb(248, 176, 42);
 }
+.gheKhachDat{
+    background-color: rgb(122, 7, 87);
+    cursor: no-drop;
+}

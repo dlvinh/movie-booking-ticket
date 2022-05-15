@@ -16,12 +16,12 @@ export default function Home() {
     // dispatch len middleware
     let action = layDanhSachRapAction();
     dispatch(action);
+
   }, [])
 
   return (
     <div>
        <CarouselLayout ></CarouselLayout>
-    
     <div className='container mx-auto px-40 py-10'>
       <div>
         <HomeCard></HomeCard>
