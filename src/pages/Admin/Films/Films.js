@@ -34,8 +34,8 @@ export default function Films() {
         let action = layDanhSachPhimAction();
         dispatch(action);
     }, [])
-    const arrFilms = useSelector(state => state.QuanLyPhimState.arrFilms);
-    console.log("arrFilms", arrFilms)
+    const DefaultarrFilm = useSelector(state => state.QuanLyPhimState.DefaultarrFilm);
+    console.log("arrFilms", DefaultarrFilm)
     const columns = [
         {
             title: 'Id',
@@ -52,7 +52,7 @@ export default function Films() {
             key: 'hinhAnh',
             width: "10%",
             render:(text, record, index)=>{
-                console.log(record);
+                //console.log(record);
                 return <img className='rounded-md' key={index} src={record.hinhAnh} alt={record.tenPhim} style={{width:50, height:50}} onError={(e)=>{
                     e.target.onError = null;
                     e.target.src=`https://picsum.photos/seed/picsum/50/50`
@@ -147,7 +147,7 @@ export default function Films() {
 
                 </div>
                 {/* Render Table */}
-                <Table className="" columns={columns} dataSource={arrFilms} onChange={onChange} />
+                <Table className="" columns={columns} dataSource={DefaultarrFilm} onChange={onChange} />
             </div>
 
 

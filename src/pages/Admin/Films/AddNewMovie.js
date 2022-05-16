@@ -13,8 +13,13 @@ import {
 } from 'antd';
 import { useFormik } from 'formik';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { themPhimUploadHinhAction } from '../../../redux/actions/QuanLyPhimActions';
+import { GROUPID } from '../../../util/setting.js/config';
 export default function AddNewMovie(props) {
     const [componentSize, setComponentSize] = useState('default');
+    const dispatch = useDispatch();
+    
     const [imgSrc, setImgSrc] = useState(null)
     const formik = useFormik({
         initialValues: {
@@ -27,10 +32,31 @@ export default function AddNewMovie(props) {
             sapChieu: false,
             hot: false,
             danhGia: 0,
-            hinhAnh: {} // hinh anh la mot du kieu dang file (object)
+            hinhAnh: {},
+            maNhom: GROUPID // hinh anh la mot du kieu dang file (object)
         },
         onSubmit: (values) => {
-            console.log("value", values)
+            console.log("value", values);
+            // tao doi tuong form data" => nhu object form json
+            // let formData = new FormData();
+            // formData.append("tenPhim", formik.values.tenPhim);
+            // console.log("tenPhimformDAta", formData.get())
+            let formData = new FormData();
+            formData.append("tenPhim", formik.values.tenPhim);
+            for (let key in values){
+                
+                if (key !== "hinhAnh"){
+                    formData.append(key,values[key]);
+                }else{
+                    //tao form data cho object file
+                    // de tao form data cho fiile can co du 3 params, ban dau la dinh dang, sau la object file, va 3 la ten (ten bat ki)
+                    formData.append("File", values.hinhAnh, values.hinhAnh.name) // 
+                }
+            }
+            //console.log("tenPhimformDAta", formData.get("File"))
+            // Send data to api
+            let action = themPhimUploadHinhAction(formData);
+            dispatch(action);
         }
     })
     const handleChangeDatePicker =(value)=>{
@@ -63,6 +89,7 @@ export default function AddNewMovie(props) {
     }
     return (
         <div className='bg-white m-4'>
+            <h2 className='text-2xl'>Add New Movie</h2>
             <Form
                 style={{ paddingTop: "2rem", paddingBottom: "2rem" }}
                 labelCol={{
@@ -109,7 +136,7 @@ export default function AddNewMovie(props) {
                     }} min="1" max='10'/>
                 </Form.Item>
                 <Form.Item label="Image">
-                    <input type="file" onChange={handleFileUpload} accept="image/png, image/jpeg, image/gif, image/jpg"/>
+                    <input type="file" onChange={handleFileUpload} accept="image/png, image/gif, image/jpg , image/jpeg"/>
                     <br/>
                     <img width="150px" height="150px" src={imgSrc} alt="..."/>
                 </Form.Item>

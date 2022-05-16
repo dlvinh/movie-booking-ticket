@@ -1,6 +1,7 @@
 import { HIDE_LOADING, SHOW_LOADING } from "./types/LoadingType"
 
 export const SHOW_LOADING_ACTION =()=>{
+    console.log("testitng");
     return {
         type: SHOW_LOADING
     }
