@@ -1,9 +1,10 @@
-import { SET_COMMINGSOON_MOVIE, SET_CURRENT_MOVIE, SET_FILM_DETAIL, SET_PHIM } from "../../actions/types/QuanLyPhimType";
+import { SET_COMMINGSOON_MOVIE, SET_CURRENT_MOVIE, SET_FILM_DETAIL, SET_PHIM, SET_THONG_TIN_PHIM } from "../../actions/types/QuanLyPhimType";
 
 const stateDefault = {
     DefaultarrFilm: [],
     arrFilms:[],
     filmDetail:"",
+    thongTinPhim:{}
 }
 export const QuanLyPhimReducer = (state = stateDefault, action)=>{
     switch(action.type){
@@ -28,6 +29,11 @@ export const QuanLyPhimReducer = (state = stateDefault, action)=>{
         }
         case SET_FILM_DETAIL:{
             state.filmDetail = action.data;
+            return {...state};
+        }
+        case SET_THONG_TIN_PHIM:{
+            console.log("Set thong tin phim....", action.data)
+            state.thongTinPhim = action.data;
             return {...state};
         }
         

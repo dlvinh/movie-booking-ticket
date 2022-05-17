@@ -54,7 +54,7 @@ export const AdminTemplate = (props) => {
                     <Header className="site-layout-background" style={{ padding: 0, color: "black", backgroundColor: "white" }} />
 
                     <Content style={{ backgroundColor: 'rgb(236 236 236 / 98%)' }}>
-                        <DestinationComponent ></DestinationComponent>
+                        <DestinationComponent propsRoute={propsRoute}></DestinationComponent>
                     </Content>
                 </Layout>
             </Layout>

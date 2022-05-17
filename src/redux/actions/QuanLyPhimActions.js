@@ -3,7 +3,7 @@ import { quanLyPhimService } from "../../services/QuanLyPhimService"
 import { openNotificationWithIcon } from "../../util/Notification/Notification";
 import { HIDE_LOADING_ACTION, SHOW_LOADING_ACTION } from "./LoadingAction,";
 import { HIDE_LOADING, SHOW_LOADING } from "./types/LoadingType";
-import { SET_FILM_DETAIL, SET_PHIM } from "./types/QuanLyPhimType";
+import { SET_FILM_DETAIL, SET_PHIM, SET_THONG_TIN_PHIM } from "./types/QuanLyPhimType";
 
 export const layDanhSachPhimAction = ()=>{
     return  async (dispatch)=>{
@@ -62,6 +62,27 @@ export const themPhimUploadHinhAction = (formData)=>{
             let data = error.response.data;
             openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content, "top");
             console.log({error})
+        }
+        // dispatch(HIDE_LOADING_ACTION());
+    }
+}
+
+// LAY THONG TIN PHIM ACTION
+export const layThongTinPhimAction = (maPhim)=>{
+    return async(dispatch)=>{
+        dispatch(SHOW_LOADING_ACTION());
+        try{
+            let res = await quanLyPhimService.layThongTinPhimService(maPhim);
+            if (res.data.statusCode === 200){
+                dispatch({
+                    type: SET_THONG_TIN_PHIM,
+                    data: res.data.content
+                })
+            }
+
+        }catch(error){
+            let data = error.response.data;
+            openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content,"top")
         }
         dispatch(HIDE_LOADING_ACTION());
     }

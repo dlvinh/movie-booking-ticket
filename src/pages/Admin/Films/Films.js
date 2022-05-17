@@ -100,9 +100,9 @@ export default function Films() {
             title: "Actions",
             dataIndex:'actions',
             render: (text, record)=>{
-                return <div>
-                    <Button className='mx-2'  type="primary" icon={<EditOutlined />} size="medium" />
-                    <Button className="mx-2" type="danger" icon={<DeleteOutlined />} size="medium" />
+                return <div key={record.maPhim}>
+                    <NavLink key={1} to={`/admin/films/editmovie/${record.maPhim}`}><Button className="mx-2" type="primary" icon={<EditOutlined />} size="medium" /></NavLink>
+                    <NavLink key={2} to={`/admin/films/deletemovie/${record.maPhim}`}><Button className="mx-2" type="danger" icon={<DeleteOutlined />} size="medium" /></NavLink>
                 </div>
             },
             width: "10%",

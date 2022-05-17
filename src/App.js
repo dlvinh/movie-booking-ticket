@@ -21,6 +21,7 @@ import { AdminTemplate } from './templates/AdminTemplate/AdminTemplate';
 import Dashboard from './pages/Admin/Dashboard/Dashboard';
 import Films from './pages/Admin/Films/Films';
 import AddNewMovie from './pages/Admin/Films/AddNewMovie';
+import EditMovie from './pages/Admin/Films/EditMovie';
 
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
@@ -30,8 +31,8 @@ export const history = createBrowserHistory();
 
 function App() {
   return (
-
-    <Router history={history}>
+    <div style={{height: "100%"}}>
+<Router history={history}>
       <LoadingAnimation></LoadingAnimation>
       <Switch>
         {/* ROUTE TO HOME COMPONENT */}
@@ -42,6 +43,7 @@ function App() {
         <AdminTemplate exact path='/admin/users' DestinationComponent={Dashboard} ></AdminTemplate>
         <AdminTemplate exact path='/admin/films' DestinationComponent={Films} ></AdminTemplate>
         <AdminTemplate exact path='/admin/films/addnewmovie' DestinationComponent={AddNewMovie} ></AdminTemplate>
+        <AdminTemplate exact path='/admin/films/editmovie/:id' DestinationComponent={EditMovie}></AdminTemplate>
         {/* ROUTE TO CONTACT */}
         <HomeTemplate exact path='/contact' DestinationComponent={Contact}></HomeTemplate>
 
@@ -69,6 +71,8 @@ function App() {
       </Switch>
 
     </Router>
+    </div>
+    
   );
 }
 
