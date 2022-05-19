@@ -94,7 +94,7 @@ const HandleFormWithFormik = withFormik({
     password: ''
   }),
   validationSchema: Yup.object().shape({
-    email: Yup.string().email("Email invalid").required("Email is required!"),
+    email: Yup.string().required("Email is required!"),
     password: Yup.string().required("Password is required")
   }),
   handleSubmit: (values,{props}) => {

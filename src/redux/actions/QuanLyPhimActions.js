@@ -4,7 +4,7 @@ import { openNotificationWithIcon } from "../../util/Notification/Notification";
 import { HIDE_LOADING_ACTION, SHOW_LOADING_ACTION } from "./LoadingAction,";
 import { HIDE_LOADING, SHOW_LOADING } from "./types/LoadingType";
 import { SET_FILM_DETAIL, SET_PHIM, SET_THONG_TIN_PHIM } from "./types/QuanLyPhimType";
-
+import {history} from "../../App";
 export const layDanhSachPhimAction = ()=>{
     return  async (dispatch)=>{
         dispatch(SHOW_LOADING_ACTION());
@@ -63,7 +63,7 @@ export const themPhimUploadHinhAction = (formData)=>{
             openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content, "top");
             console.log({error})
         }
-        // dispatch(HIDE_LOADING_ACTION());
+        dispatch(HIDE_LOADING_ACTION());
     }
 }
 
@@ -82,6 +82,27 @@ export const layThongTinPhimAction = (maPhim)=>{
 
         }catch(error){
             let data = error.response.data;
+            openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content,"top")
+        }
+        dispatch(HIDE_LOADING_ACTION());
+    }
+}
+
+// CAP NHAT THONG TIN PHIM
+export const capNhatPhimUploadAction = (formData)=>{
+    return async(dispatch)=>{
+        console.log("Updating...",formData.get("ngayKhoiChieu"));
+        dispatch(SHOW_LOADING_ACTION());
+        try {
+            let res = await quanLyPhimService.capNhatPhimUploadService(formData);
+            console.log("res")
+            if (res.data.statusCode === 200){
+                openNotificationWithIcon("success",`Success`, res.data.message, "top");
+                history.push("/admin/films")
+            }
+        } catch (error) {
+            let data = error.response.data;
+            console.log("error",error)
             openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content,"top")
         }
         dispatch(HIDE_LOADING_ACTION());

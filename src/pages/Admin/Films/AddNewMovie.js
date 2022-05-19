@@ -42,9 +42,7 @@ export default function AddNewMovie(props) {
             // formData.append("tenPhim", formik.values.tenPhim);
             // console.log("tenPhimformDAta", formData.get())
             let formData = new FormData();
-            formData.append("tenPhim", formik.values.tenPhim);
             for (let key in values){
-                
                 if (key !== "hinhAnh"){
                     formData.append(key,values[key]);
                 }else{
@@ -61,11 +59,14 @@ export default function AddNewMovie(props) {
     })
     const handleChangeDatePicker =(value)=>{
        // console.log("datepicker",moment(value).format("DD/MM/YYYY"));
+       console.log("value",value)
         formik.setFieldValue("ngayKhoiChieu",moment(value).format("DD/MM/YYYY"));
+        
     }
     // closure function technique
     const handlChangeSwitch =(name)=>{
         return (value)=>{
+            
             formik.setFieldValue(name,value)
         }
     }
@@ -73,15 +74,15 @@ export default function AddNewMovie(props) {
     // Xu ly upload image 
     const handleFileUpload = (e)=>{
         let file = e.target.files[0]; // lay file dau tien
-        console.log("file",file);
-        if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg"){
+        console.log("file", file);
+        if (file.type === "image/jpeg" || file.type === "image/png" || file.type === "image/jpg") {
             let reader = new FileReader();
             reader.readAsDataURL(file);// tu file, reader se tao url cho file hinh anh theo dang base 64
-            reader.onload = (e)=>{
+            reader.onload = (e) => {
                 //console.log(e.target.result) //
                 setImgSrc(e.target.result);
             }
-            formik.setFieldValue("hinhAnh",file);
+            formik.setFieldValue("hinhAnh", file);
         }
         // tao doi tuogn de doc file 
        
@@ -136,7 +137,7 @@ export default function AddNewMovie(props) {
                     }} min="1" max='10'/>
                 </Form.Item>
                 <Form.Item label="Image">
-                    <input type="file" onChange={handleFileUpload} accept="image/png, image/gif, image/jpg , image/jpeg"/>
+                    <input type="file" onChange={handleFileUpload} accept="image/png, image/gif, image/jpg , image/jpeg" />
                     <br/>
                     <img width="150px" height="150px" src={imgSrc} alt="..."/>
                 </Form.Item>

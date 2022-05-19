@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
 import { DeleteOutlined } from '@ant-design/icons';
 import { history } from '../../../App';
+import moment from "moment";
 const data = [
     {
         "maPhim": 10534,
@@ -73,7 +74,14 @@ export default function Films() {
                 return -1;
             },
         },
-
+        {
+            title: "Release Date",
+            dataIndex:'ngayKhoiChieu',
+            render:(text, record)=>{
+                return moment(record.ngayKhoiChieu).format("DD/MM/YYYY")
+            }
+            
+        },
         {
             title: 'Description',
             dataIndex: 'moTa',
