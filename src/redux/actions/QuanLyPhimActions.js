@@ -1,15 +1,16 @@
 import { map } from "lodash";
 import { quanLyPhimService } from "../../services/QuanLyPhimService"
 import { openNotificationWithIcon } from "../../util/Notification/Notification";
-import { HIDE_LOADING_ACTION, SHOW_LOADING_ACTION } from "./LoadingAction,";
-import { HIDE_LOADING, SHOW_LOADING } from "./types/LoadingType";
-import { SET_FILM_DETAIL, SET_PHIM, SET_THONG_TIN_PHIM } from "./types/QuanLyPhimType";
+import { HIDE_LOADING_ACTION, HIDE_LOADING_TABLE_ACTION, SHOW_LOADING_ACTION, SHOW_LOADING_TABLE_ACTION } from "./LoadingAction,";
+import { HIDE_LOADING, SHOW_LOADING, SHOW_LOADING_TABLE } from "./types/LoadingType";
+import { SET_FILM_DETAIL, SET_LOADING_TABLE_STATE, SET_PHIM, SET_THONG_TIN_PHIM } from "./types/QuanLyPhimType";
 import {history} from "../../App";
-export const layDanhSachPhimAction = ()=>{
-    return  async (dispatch)=>{
-        dispatch(SHOW_LOADING_ACTION());
+export const layDanhSachPhimAction = (keyWord)=>{
+    return async(dispatch)=>{
+       await dispatch(SHOW_LOADING_TABLE_ACTION());
         try {
-            quanLyPhimService.layDangSachPhim()
+            // console.log("aydanh sach",keyWord)
+            quanLyPhimService.layDangSachPhim(keyWord)
             .then((res)=>{
                 let {content, statusCode} = res.data;
                 if (statusCode === 200){
@@ -17,6 +18,7 @@ export const layDanhSachPhimAction = ()=>{
                         type: SET_PHIM,
                         data: content
                     })
+                    dispatch(HIDE_LOADING_TABLE_ACTION())
                 }
             })
             .catch((err)=>{
@@ -25,9 +27,9 @@ export const layDanhSachPhimAction = ()=>{
         } catch (error) {
             console.log("error",error)
         }
-        dispatch(HIDE_LOADING_ACTION());
     }
 }
+
 
 export const layThongTinLichChieuPhimAction =(maPhim)=>{
     return async (dispatch)=>{
@@ -95,7 +97,7 @@ export const capNhatPhimUploadAction = (formData)=>{
         dispatch(SHOW_LOADING_ACTION());
         try {
             let res = await quanLyPhimService.capNhatPhimUploadService(formData);
-            console.log("res")
+            //console.log("res")
             if (res.data.statusCode === 200){
                 openNotificationWithIcon("success",`Success`, res.data.message, "top");
                 history.push("/admin/films")
@@ -106,5 +108,21 @@ export const capNhatPhimUploadAction = (formData)=>{
             openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content,"top")
         }
         dispatch(HIDE_LOADING_ACTION());
+    }
+}
+
+// DELETE MOVIE 
+export const xoaPhimAction =(maPhim)=>{
+    return async(dispatch)=>{
+        try{
+            let res = await quanLyPhimService.xoaPhimService(maPhim);
+            if (res.data.statusCode === 200){
+                openNotificationWithIcon("success",res.data.message,res.data.content,"top");
+                dispatch(layDanhSachPhimAction(" "));
+            }
+        }catch(error){
+            let data = error.response.data;
+            openNotificationWithIcon("error",data.message,data.content,"top");
+        }
     }
 }

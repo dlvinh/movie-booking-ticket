@@ -1,42 +1,76 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState ,useCallback} from 'react'
 import { Button, Table } from 'antd';
 import { Input, AutoComplete } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { PlusOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector, } from 'react-redux';
-import { layDanhSachPhimAction } from '../../../redux/actions/QuanLyPhimActions';
+import { layDanhSachPhimAction, xoaPhimAction } from '../../../redux/actions/QuanLyPhimActions';
 import { Fragment } from 'react/cjs/react.production.min';
 import { NavLink } from 'react-router-dom';
 import { EditOutlined } from '@ant-design/icons';
 import { DeleteOutlined } from '@ant-design/icons';
 import { history } from '../../../App';
 import moment from "moment";
-const data = [
-    {
-        "maPhim": 10534,
-        "tenPhim": "PHÙ THỦY TỐI THƯỢNG TRONG ĐA VŨ TRỤ HỖN LOẠN",
-        "biDanh": "phu-thuy-toi-thuong-trong-da-vu-tru-hon-loan",
-        "trailer": "https://www.youtube.com/watch?v=aWzlQ2N6qqg",
-        "hinhAnh": "http://movieapi.cyberlearn.vn/hinhanh/phu-thuy-toi-thuong-trong-da-vu-tru-hon-loan_gp01.jpg",
-        "moTa": "Sau các sự kiện của Avengers: Endgame, Tiến sĩ Stephen Strange tiếp tục nghiên cứu về Viên đá Thời gian. Nhưng một người bạn cũ đã trở thành kẻ thù tìm cách tiêu diệt mọi phù thủy trên Trái đất, làm xáo trộn kế hoạch của Strange và cũng khiến anh ta mở ra một tội ác khôn lường.",
-        "maNhom": "GP01",
-        "ngayKhoiChieu": "2022-05-04T00:00:00",
-        "danhGia": 10,
-        "hot": true,
-        "dangChieu": true,
-        "sapChieu": false
-    }
+import _ from "lodash"
 
-];
+import { confirmAlert } from 'react-confirm-alert';
+
+const mockVal = (str, repeat = 1) => ({
+    value: str.repeat(repeat),
+});
 export default function Films() {
     const dispatch = useDispatch();
     // Lay danh sach phim khi moi bat dau render
     useEffect(() => {
-        let action = layDanhSachPhimAction();
+        let action = layDanhSachPhimAction(" ");
         dispatch(action);
     }, [])
     const DefaultarrFilm = useSelector(state => state.QuanLyPhimState.DefaultarrFilm);
-    console.log("arrFilms", DefaultarrFilm)
+    const loadingTableState = useSelector(state => state.LoadingState.isTableLoadingShow);
+    //console.log("DefaultarrFilm", DefaultarrFilm)
+    // DELETE MOVIE 
+    const deleteMovieHandler = (maPhim) => {
+        confirmAlert({
+            title: `Delete Movie ${maPhim}`,
+            message: 'Confirmation',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: async () => {
+                        let action = xoaPhimAction(maPhim);
+                        await dispatch(action);
+                        // let reRenderPage = layDanhSachPhimAction(" ");
+                        // await dispatch(reRenderPage);
+                    }
+                },
+                {
+                    label: 'No',
+                }
+            ]
+        });
+    }
+
+    const [value, setValue] = useState('');
+    const [options, setOptions] = useState([]);
+    // const onSearch = async searchText => {
+    //    //await dispatch({ type: SET_LOADING_TABLE_STATE });
+    //    setTimeout(()=>{
+    //         let action = layDanhSachPhimAction(searchText);
+    //         dispat ch(action);
+    //     },1000)
+       
+    // };
+    const onSearch = useCallback(
+        // DEBOUNCE TECHINQUE
+        _.debounce(async(searchText)=>{
+            let action = layDanhSachPhimAction(searchText);
+            dispatch(action);
+        },1000),[]
+    )
+
+    const onSearchHandler = (text) => {
+        setValue(text);
+    }
     const columns = [
         {
             title: 'Id',
@@ -52,14 +86,14 @@ export default function Films() {
             //dataIndex: 'hinhAnh',
             key: 'hinhAnh',
             width: "10%",
-            render:(text, record, index)=>{
+            render: (text, record, index) => {
                 //console.log(record);
-                return <img className='rounded-md' key={index} src={record.hinhAnh} alt={record.tenPhim} style={{width:50, height:50}} onError={(e)=>{
+                return <img className='rounded-md' key={index} src={record.hinhAnh} alt={record.tenPhim} style={{ width: 50, height: 50 }} onError={(e) => {
                     e.target.onError = null;
-                    e.target.src=`https://picsum.photos/seed/picsum/50/50`
-                }}/>
+                    e.target.src = `https://picsum.photos/seed/picsum/50/50`
+                }} />
             },
-         
+
         },
 
         {
@@ -68,7 +102,7 @@ export default function Films() {
             sorter: (a, b) => {
                 let tenPhimA = a.tenPhim.toLowerCase().trim();
                 let tenPhimB = b.tenPhim.toLowerCase().trim();
-                if (tenPhimA > tenPhimB){
+                if (tenPhimA > tenPhimB) {
                     return 1;
                 }
                 return -1;
@@ -76,29 +110,29 @@ export default function Films() {
         },
         {
             title: "Release Date",
-            dataIndex:'ngayKhoiChieu',
-            render:(text, record)=>{
+            dataIndex: 'ngayKhoiChieu',
+            render: (text, record) => {
                 return moment(record.ngayKhoiChieu).format("DD/MM/YYYY")
             }
-            
+
         },
         {
             title: 'Description',
             dataIndex: 'moTa',
-            render: (text, record, index)=>{
-                if (record.moTa.length >50){
+            render: (text, record, index) => {
+                if (record.moTa.length > 50) {
                     return <Fragment>
-                        {record.moTa.substring(0,200) + "..."}
+                        {record.moTa.substring(0, 200) + "..."}
                     </Fragment>
                 }
                 return <Fragment>
-                {record.moTa}
-            </Fragment>
+                    {record.moTa}
+                </Fragment>
             },
             sorter: (a, b) => {
                 let moTaPhimA = a.moTa.toLowerCase().trim();
                 let moTaPhimB = b.moTa.toLowerCase().trim();
-                if (moTaPhimA > moTaPhimB){
+                if (moTaPhimA > moTaPhimB) {
                     return 1;
                 }
                 return -1;
@@ -106,32 +140,20 @@ export default function Films() {
         },
         {
             title: "Actions",
-            dataIndex:'actions',
-            render: (text, record)=>{
+            dataIndex: 'actions',
+            render: (text, record) => {
                 return <div key={record.maPhim}>
-                    <NavLink key={1} to={`/admin/films/editmovie/${record.maPhim}`}><Button className="mx-2" type="primary" icon={<EditOutlined />} size="medium" /></NavLink>
-                    <NavLink key={2} to={`/admin/films/deletemovie/${record.maPhim}`}><Button className="mx-2" type="danger" icon={<DeleteOutlined />} size="medium" /></NavLink>
+                    <Button onClick={() => {
+                        history.push(`/admin/films/editmovie/${record.maPhim}`);
+                    }} className="mx-2" type="primary" icon={<EditOutlined />} size="medium" />
+
+                    <Button onClick={() => {
+                        deleteMovieHandler(record.maPhim);
+                    }} className="mx-2" type="danger" icon={<DeleteOutlined />} size="medium" />
                 </div>
             },
             width: "10%",
         }
-        // {
-        //     title: '',
-        //     dataIndex: 'math',
-        //     key=""
-        //     sorter: {
-        //         compare: (a, b) => a.math - b.math,
-        //         multiple: 2,
-        //     },
-        // },
-        // {
-        //     title: 'English Score',
-        //     dataIndex: 'english',
-        //     sorter: {
-        //         compare: (a, b) => a.english - b.english,
-        //         multiple: 1,
-        //     },
-        // },
     ];
 
     const onChange = (pagination, filters, sorter, extra) => {
@@ -145,17 +167,21 @@ export default function Films() {
                 <AutoComplete
                     dropdownMatchSelectWidth={252}
                     className="w-1/2 "
-                >
-                    <Input.Search size="large" placeholder="input here" enterButton />
-                </AutoComplete>
+                    onChange={onSearch}
+
+                    //onSearch={onSearch}
+                    options={DefaultarrFilm.map((item,index)=>{return {value: item.tenPhim, label: item.tenPhim}})}
+                />
+                {/* <Input.Search size="large" placeholder="input here" enterButton /> */}
+
                 <div className='func_group flex justify-end'>
-                    <Button type='primary' size='medium' onClick={()=>{
+                    <Button type='primary' size='medium' onClick={() => {
                         history.push('/admin/films/addnewmovie')
                     }}>Add Movie</Button>
 
                 </div>
                 {/* Render Table */}
-                <Table className="" columns={columns} dataSource={DefaultarrFilm} onChange={onChange} />
+                <Table loading={loadingTableState} className="" columns={columns} dataSource={DefaultarrFilm} onChange={onChange} />
             </div>
 
 

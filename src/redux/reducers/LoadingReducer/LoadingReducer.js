@@ -1,19 +1,30 @@
-import { HIDE_LOADING, SHOW_LOADING } from "../../actions/types/LoadingType"
+import { HIDE_LOADING, HIDE_LOADING_TABLE, SHOW_LOADING, SHOW_LOADING_TABLE } from "../../actions/types/LoadingType"
 
 const initialState = {
-    isShow: false
+    isShow: false,
+    isTableLoadingShow: true // loading is showing
 }
 
-export const LoadingReducer = (state = initialState, action)=>{
-    switch(action.type){
-        case SHOW_LOADING:{
+export const LoadingReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case SHOW_LOADING: {
             state.isShow = true;
-            return {...state};
+            return { ...state };
         }
-        case HIDE_LOADING:{
+        case HIDE_LOADING: {
             state.isShow = false;
-            return {...state};
+            return { ...state };
         }
-       default: return {...state}
+        case SHOW_LOADING_TABLE: {
+            console.log("Table Loading show")
+            state.isTableLoadingShow = true;
+            return { ...state };
+        }
+        case HIDE_LOADING_TABLE: {
+            console.log("Table Loading hide")
+            state.isTableLoadingShow = false;
+            return { ...state };
+        }
+        default: return { ...state }
     }
 }

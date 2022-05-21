@@ -1,18 +1,21 @@
-import { SET_COMMINGSOON_MOVIE, SET_CURRENT_MOVIE, SET_FILM_DETAIL, SET_PHIM, SET_THONG_TIN_PHIM } from "../../actions/types/QuanLyPhimType";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { SET_AUTO_COMPLETE_FILM, SET_COMMINGSOON_MOVIE, SET_CURRENT_MOVIE, SET_FILM_DETAIL, SET_LOADING_TABLE_STATE, SET_PHIM, SET_THONG_TIN_PHIM } from "../../actions/types/QuanLyPhimType";
 
 const stateDefault = {
     DefaultarrFilm: [],
     arrFilms:[],
     filmDetail:"",
-    thongTinPhim:{}
+    thongTinPhim:{},
+    danhSachAutoComplete:[],
 }
 export const QuanLyPhimReducer = (state = stateDefault, action)=>{
     switch(action.type){
         case SET_PHIM: {
-           // console.log("Setting-phim",action.data);
+           console.log("Setting-phim",action.data);
             const currentMovie = action.data.filter(movie => { return movie.sapChieu === true});
             state.arrFilms = currentMovie;
             state.DefaultarrFilm = action.data;
+            state.loadingTableState = false;
             return {...state};
         }
         case SET_CURRENT_MOVIE:{
@@ -34,6 +37,10 @@ export const QuanLyPhimReducer = (state = stateDefault, action)=>{
         case SET_THONG_TIN_PHIM:{
             console.log("Set thong tin phim....", action.data)
             state.thongTinPhim = action.data;
+            return {...state};
+        }
+        case SET_AUTO_COMPLETE_FILM:{
+            state.danhSachAutoComplete = action.data;
             return {...state};
         }
         

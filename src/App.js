@@ -23,6 +23,9 @@ import Films from './pages/Admin/Films/Films';
 import AddNewMovie from './pages/Admin/Films/AddNewMovie';
 import EditMovie from './pages/Admin/Films/EditMovie';
 
+// Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; 
+
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
 // DIEU HUONG CAC THANH CONG CU ROUTE TOI CAC PAGE KHAC
