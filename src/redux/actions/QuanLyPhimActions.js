@@ -50,9 +50,9 @@ export const layThongTinLichChieuPhimAction =(maPhim)=>{
 
 // ADD NEW MOVIE
 export const themPhimUploadHinhAction = (formData)=>{
-   console.log("tenPhimformDAta", formData.get("File"))
+   //console.log("tenPhimformDAta", formData.get("File"))
     return async(dispatch)=>{
-        dispatch(SHOW_LOADING_ACTION());
+       //await dispatch(SHOW_LOADING_ACTION());
         try {
             let res = await quanLyPhimService.themPhimUploadHinh(formData);
             if (res.data.statusCode === 200){
@@ -65,7 +65,7 @@ export const themPhimUploadHinhAction = (formData)=>{
             openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content, "top");
             console.log({error})
         }
-        dispatch(HIDE_LOADING_ACTION());
+       // dispatch(HIDE_LOADING_ACTION());
     }
 }
 

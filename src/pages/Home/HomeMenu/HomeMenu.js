@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { SET_RAP_PHIM } from '../../../redux/actions/types/QuanLyRapTypes';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
+import { history } from '../../../App';
 const { TabPane } = Tabs;
 function HomeMenu(props) {
     //console.log("HomeMenuprops", props)
@@ -15,7 +16,9 @@ function HomeMenu(props) {
                     {item.lstCumRap?.map((cumRap, index) => {
                         return <TabPane key={index} tab={
                             <div style={{ width: '300px' }} className="flex items-center">
-                                <img className='rounded-full' width="50" src={`https://picsum.photos/id/${index}/200/200`} alt={item.tenHeThongRap} />
+                                <img className='rounded-full cursor-pointer' width="50" src={`https://picsum.photos/id/${index}/200/200`} alt={item.tenHeThongRap} onClick={()=>{
+                                   
+                                }} />
                                 <br />
                                 <div className='text-left ml-2'>
                                     {cumRap.tenCumRap}

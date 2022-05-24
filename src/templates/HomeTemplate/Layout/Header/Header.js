@@ -18,11 +18,16 @@ export default function Header(props) {
                 items={[
                     {
                         label: (
-                            <p>Profile</p>
+                            <NavLink to="/">Profile</NavLink>
                         ),
                         key: "profile"
                     },
-
+                    {
+                        label: (
+                            <NavLink to="/admin">Management</NavLink>
+                        ),
+                        key: "management"
+                    },
                     {
                         label: (
                             <Popconfirm placement="top" title="Do you want to sign out" onConfirm={()=>{
@@ -43,12 +48,11 @@ export default function Header(props) {
     const loginValidation = () => {
         if (!_.isEmpty(userLogin)) {
             return <>
-                <Dropdown overlay={menu}  trigger={['click']}>
+                <Dropdown arrow={true} overlay={menu}  trigger={['click']}>
                     <div  className="items-center flex cursor-pointer">
                         <img src="https://picsum.photos/50" className='rounded-full' />
                         <p className='m-0 ml-2'>Hello, {userLogin.hoTen}</p>
                     </div>
-
                 </Dropdown>
 
             </>

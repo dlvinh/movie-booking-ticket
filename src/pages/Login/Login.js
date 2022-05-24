@@ -53,8 +53,8 @@ export function Login(props) {
         <div className="mt-12">
           <form onClick={handleSubmit}>
             <div>
-              <div className="text-sm font-bold text-gray-700 tracking-wide">Email Address</div>
-              <input onChange={handleChange} name="email" className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="email" placeholder="example@gmail.com" />
+              <div className="text-sm font-bold text-gray-700 tracking-wide">Username</div>
+              <input onChange={handleChange} name="email" className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500" type="text" placeholder="Enter your username" />
               {errors?.email ? <div id="feedback" className='text-red-600 text-sm'>{errors.email}</div> : ""}
             </div>
             <div className="mt-8">
@@ -94,7 +94,7 @@ const HandleFormWithFormik = withFormik({
     password: ''
   }),
   validationSchema: Yup.object().shape({
-    email: Yup.string().required("Email is required!"),
+    email: Yup.string().required("This field is required!"),
     password: Yup.string().required("Password is required")
   }),
   handleSubmit: (values,{props}) => {

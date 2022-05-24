@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useCallback} from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Button, Table } from 'antd';
 import { Input, AutoComplete } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
@@ -14,10 +14,8 @@ import moment from "moment";
 import _ from "lodash"
 
 import { confirmAlert } from 'react-confirm-alert';
+import { CalendarOutlined } from '@ant-design/icons';
 
-const mockVal = (str, repeat = 1) => ({
-    value: str.repeat(repeat),
-});
 export default function Films() {
     const dispatch = useDispatch();
     // Lay danh sach phim khi moi bat dau render
@@ -58,14 +56,14 @@ export default function Films() {
     //         let action = layDanhSachPhimAction(searchText);
     //         dispat ch(action);
     //     },1000)
-       
+
     // };
     const onSearch = useCallback(
         // DEBOUNCE TECHINQUE
-        _.debounce(async(searchText)=>{
+        _.debounce(async (searchText) => {
             let action = layDanhSachPhimAction(searchText);
             dispatch(action);
-        },1000),[]
+        }, 1000), []
     )
 
     const onSearchHandler = (text) => {
@@ -150,9 +148,13 @@ export default function Films() {
                     <Button onClick={() => {
                         deleteMovieHandler(record.maPhim);
                     }} className="mx-2" type="danger" icon={<DeleteOutlined />} size="medium" />
+
+                    <Button onClick={() => {
+                        history.push(`/admin/films/addnewschedule/${record.maPhim}/${record.tenPhim}`)
+                    }} className="mx-2" type="primary" icon={<CalendarOutlined />} size="medium" />
                 </div>
             },
-            width: "10%",
+            width: "15%",
         }
     ];
 
@@ -160,7 +162,7 @@ export default function Films() {
         console.log('params', pagination, filters, sorter, extra);
     }
     return (
-        <div className='bg-white m-4 w-auto' >
+        <div className='bg-white' >
             <div className='p-3'>
                 <h1 className='text-2xl'>Movie Management</h1>
 
@@ -170,7 +172,7 @@ export default function Films() {
                     onChange={onSearch}
 
                     //onSearch={onSearch}
-                    options={DefaultarrFilm.map((item,index)=>{return {value: item.tenPhim, label: item.tenPhim}})}
+                    options={DefaultarrFilm.map((item, index) => { return { value: item.tenPhim, label: item.tenPhim } })}
                 />
                 {/* <Input.Search size="large" placeholder="input here" enterButton /> */}
 

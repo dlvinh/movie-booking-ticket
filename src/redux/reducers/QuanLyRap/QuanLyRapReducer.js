@@ -1,7 +1,9 @@
-import { SET_RAP_PHIM } from "../../actions/types/QuanLyRapTypes"
+import { SET_RAP_PHIM, SET_THONG_TIN_CUM_RAP, SET_THONG_TIN_HE_THONG_RAP_CHIEU } from "../../actions/types/QuanLyRapTypes"
 
 const stateDefault = {
-    heThongRapChieu:[]
+    heThongRapChieu:[],
+    thongTinHeThongRapChieu:[],
+    thongTinCumRap:[],
 }
 
 export const QuanLyRapReducer = (state = stateDefault,action)=>{
@@ -10,6 +12,14 @@ export const QuanLyRapReducer = (state = stateDefault,action)=>{
             //console.log(action.data);
             state.heThongRapChieu = action.data;
             return {...state};
+        }
+        case SET_THONG_TIN_HE_THONG_RAP_CHIEU:{
+            state.thongTinHeThongRapChieu = action.data
+            return {...state};
+        }
+        case SET_THONG_TIN_CUM_RAP:{
+            state.thongTinCumRap = action.data;
+            return{...state};
         }
         default: return {...state}
     }

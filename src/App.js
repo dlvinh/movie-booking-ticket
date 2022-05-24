@@ -25,6 +25,8 @@ import EditMovie from './pages/Admin/Films/EditMovie';
 
 // Import
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import AddSchedule from './pages/Admin/Films/AddSchedule';
+import UserManagement from './pages/Admin/UserManagement/UserManagement';
 
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
@@ -47,6 +49,8 @@ function App() {
         <AdminTemplate exact path='/admin/films' DestinationComponent={Films} ></AdminTemplate>
         <AdminTemplate exact path='/admin/films/addnewmovie' DestinationComponent={AddNewMovie} ></AdminTemplate>
         <AdminTemplate exact path='/admin/films/editmovie/:id' DestinationComponent={EditMovie}></AdminTemplate>
+        <AdminTemplate exact path="/admin/films/addnewschedule/:id/:tenPhim" DestinationComponent={AddSchedule}></AdminTemplate>
+        <AdminTemplate exact path="/admin/usermanagement" DestinationComponent={UserManagement}></AdminTemplate>
         {/* ROUTE TO CONTACT */}
         <HomeTemplate exact path='/contact' DestinationComponent={Contact}></HomeTemplate>
 
