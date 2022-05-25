@@ -14,11 +14,17 @@ export class QuanLyNguoiDung extends BaseService{
     dangKy = (data)=>{
         return this.post('api/QuanLyNguoiDung/DangKy',data);
     }
-    layDanhSachNguoiDungPhanTrang =(keyWord)=>{
+    layDanhSachNguoiDung =(keyWord)=>{
         if (keyWord.trim() === ""){
-            return this.get(`api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=${GROUPID}`);
+            return this.get(`api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${GROUPID}`);
         }
-        return this.get(`api/QuanLyNguoiDung/LayDanhSachNguoiDungPhanTrang?MaNhom=${GROUPID}&tuKhoa=${keyWord}`)
+        return this.get(`api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${GROUPID}&tuKhoa=${keyWord}`)
+    }
+    layDanhSachLoaiNguoiDung = ()=>{
+        return this.get(`api/QuanLyNguoiDung/LayDanhSachLoaiNguoiDung`);
+    }
+    themNguoiDung =(newUser)=>{
+        return this.post(`api/QuanLyNguoiDung/ThemNguoiDung`,newUser);
     }
 }
 

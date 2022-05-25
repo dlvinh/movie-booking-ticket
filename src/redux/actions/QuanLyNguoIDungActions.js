@@ -39,8 +39,8 @@ export const layThongTinTaiKhoanAction = () => {
         try {
             let response = await quanLyNguoiDung.layThongTinTaiKhoan();
             let { data, status } = response;
-            if (status === 200){
-                console.log("thongTinTaiKhoan",data.content);
+            if (status === 200) {
+                console.log("thongTinTaiKhoan", data.content);
                 dispatch({
                     type: SAVE_THONG_TIN_TAI_KHOAN,
                     data: data.content
@@ -53,42 +53,59 @@ export const layThongTinTaiKhoanAction = () => {
     }
 }
 
-export const dangKyAction = (values)=>{
-    console.log("dangKydispatch",values);
-    return async(dispatch)=>{
-        try{
+export const dangKyAction = (values) => {
+    console.log("dangKydispatch", values);
+    return async (dispatch) => {
+        try {
             dispatch(SHOW_LOADING_ACTION());
             let res = await quanLyNguoiDung.dangKy(values);
-            if (res.data.statusCode === 200){
-              openNotificationWithIcon("success","Register Success",res.data.message,"top");
-              history.push('/login')
+            if (res.data.statusCode === 200) {
+                openNotificationWithIcon("success", "Register Success", res.data.message, "top");
+                history.push('/login')
             }
-          }catch(errors){
+        } catch (errors) {
             let data = errors.response.data;
-            openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content, "top");
-            console.log({errors})
-          }
-          dispatch(HIDE_LOADING_ACTION());
+            openNotificationWithIcon("error", `Error ${data.statusCode}`, data.content, "top");
+            console.log({ errors })
+        }
+        dispatch(HIDE_LOADING_ACTION());
     }
 }
 
-export const layDanhSachNguoiDungPhanTrangAction = (keyWord)=>{
-    return async(dispatch)=>{
+export const layDanhSachNguoiDungAction = (keyWord) => {
+    return async (dispatch) => {
         try {
-            let res  = await quanLyNguoiDung.layDanhSachNguoiDungPhanTrang(keyWord);
-            if (res.data.statusCode === 200){
-                console.log("res",res);
+            let res = await quanLyNguoiDung.layDanhSachNguoiDung(keyWord);
+            if (res.data.statusCode === 200) {
+                console.log("res", res);
                 await dispatch({
-                    type:SET_DANH_SACH_NGUOI_DUNG,
-                    data: res.data.content.items
+                    type: SET_DANH_SACH_NGUOI_DUNG,
+                    data: res.data.content
                 });
 
             }
         } catch (error) {
             let data = error.response.data;
-            openNotificationWithIcon("error",`Error ${data.statusCode}`, data.content, "top");
-            console.log({error})
+            openNotificationWithIcon("error", `Error ${data.statusCode}`, data.content, "top");
+            console.log({ error })
         }
         await dispatch(HIDE_LOADING_TABLE_ACTION());
     }
+}
+
+export const themNguoiDungAction = (newUser) => {
+    return async (dispatch) => {
+        try {
+            let res = await quanLyNguoiDung.themNguoiDung(newUser);
+            console.log({res})
+            if (res.data.statusCode === 200) {
+                openNotificationWithIcon("success", "SUCCESS", res.data.message,"top");
+                window.location.reload();
+            }
+        } catch (error) {
+            let data = error.response.data;
+            openNotificationWithIcon("error", data.message, data.content, "top");
+        }
+    }
+
 }

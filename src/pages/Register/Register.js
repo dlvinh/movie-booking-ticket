@@ -3,11 +3,8 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
 import { connect } from 'react-redux';
-import { YoutubeFilled } from '@ant-design/icons';
 import { GROUPID } from '../../util/setting.js/config';
-import { quanLyNguoiDung } from '../../services/QuanLyNguoiDung';
-import { openNotificationWithIcon } from '../../util/Notification/Notification';
-import { history } from '../../App';
+
 import { dangKyAction } from '../../redux/actions/QuanLyNguoIDungActions';
 // "taiKhoan": "string",
 // "matKhau": "string",
@@ -95,12 +92,12 @@ const HandleRegisterFormWithFormik = withFormik({
     maNhom: GROUPID,
     hoTen: "",
   }),
-  // validationSchema: Yup.object().shape({
-  //   email: Yup.string().email("Email invalid").required("This field is required!"),
-  //   matKhau: Yup.string().required("This field is required!"),
-  //   taiKhoan: Yup.string().required("This field is required!"),
-  //   hoTen: Yup.string().required("This field is required!")
-  // }),
+  validationSchema: Yup.object().shape({
+    email: Yup.string().email("Email invalid").required("This field is required!"),
+    matKhau: Yup.string().required("This field is required!"),
+    taiKhoan: Yup.string().required("This field is required!"),
+    hoTen: Yup.string().required("This field is required!")
+  }),
   handleSubmit: async (values, { props }) => {
     console.log("values", values);
     console.log("prosp",props)
