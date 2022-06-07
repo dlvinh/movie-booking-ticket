@@ -43,18 +43,18 @@ function App() {
         <LoadingAnimation></LoadingAnimation>
         <Switch>
           {/* ROUTE TO HOME COMPONENT */}
-          <HomeTemplate exact path="/movie-booking-ticket/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
-          <HomeTemplate exact path="/movie-booking-ticket/home" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
+          <HomeTemplate exact path="/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
+          <HomeTemplate exact path="/home" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
           {/* ADMIN */}
-          <AdminTemplate exact path='/movie-booking-ticket/admin' DestinationComponent={UserManagement}></AdminTemplate>
-          <AdminTemplate exact path='/movie-booking-ticket/admin/users' DestinationComponent={UserManagement} ></AdminTemplate>
-          <AdminTemplate exact path='/movie-booking-ticket/admin/films' DestinationComponent={Films} ></AdminTemplate>
-          <AdminTemplate exact path='/movie-booking-ticket/admin/films/addnewmovie' DestinationComponent={AddNewMovie} ></AdminTemplate>
-          <AdminTemplate exact path='/movie-booking-ticket/admin/films/editmovie/:id' DestinationComponent={EditMovie}></AdminTemplate>
-          <AdminTemplate exact path="/movie-booking-ticket/admin/films/addnewschedule/:id/:tenPhim" DestinationComponent={AddSchedule}></AdminTemplate>
-          <AdminTemplate exact path="/movie-booking-ticket/admin/usermanagement" DestinationComponent={UserManagement}></AdminTemplate>
-          <AdminTemplate exact path="/movie-booking-ticket/admin/usermanagement/:taiKhoan" DestinationComponent={EditUser}></AdminTemplate>
-          <HomeTemplate exact path = '/movie-booking-ticket/profile/:taiKhoan' DestinationComponent={Profile}></HomeTemplate>
+          <AdminTemplate exact path='/admin' DestinationComponent={UserManagement}></AdminTemplate>
+          <AdminTemplate exact path='/admin/users' DestinationComponent={UserManagement} ></AdminTemplate>
+          <AdminTemplate exact path='/admin/films' DestinationComponent={Films} ></AdminTemplate>
+          <AdminTemplate exact path='/admin/films/addnewmovie' DestinationComponent={AddNewMovie} ></AdminTemplate>
+          <AdminTemplate exact path='/admin/films/editmovie/:id' DestinationComponent={EditMovie}></AdminTemplate>
+          <AdminTemplate exact path="/admin/films/addnewschedule/:id/:tenPhim" DestinationComponent={AddSchedule}></AdminTemplate>
+          <AdminTemplate exact path="/admin/usermanagement" DestinationComponent={UserManagement}></AdminTemplate>
+          <AdminTemplate exact path="/admin/usermanagement/:taiKhoan" DestinationComponent={EditUser}></AdminTemplate>
+          <HomeTemplate exact path = '/profile/:taiKhoan' DestinationComponent={Profile}></HomeTemplate>
 
 
           {/* ROUTE TO CONTACT */}
