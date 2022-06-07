@@ -30,7 +30,7 @@ export const QuanlyDatVeReducer = (state = stateDefault, action) => {
             return {...state};
         }
         case CHUYEN_TAB:{
-            console.log("CGUTENTAB", action.data)
+            console.log("CHUYENTAB", action.data)
             state.tabActive = action.data;
             return {...state};
         }

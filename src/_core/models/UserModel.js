@@ -8,3 +8,4 @@ export class User {
         this.hoTen = hoTen;
     };
 }
+export const user = new User();

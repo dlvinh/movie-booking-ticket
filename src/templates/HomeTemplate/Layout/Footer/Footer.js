@@ -20,7 +20,7 @@ function Footer() {
         // 
         return _.pick(hethongRap, ['maHeThongRap', "tenHeThongRap", "logo", "mahom"]);
     })
-    console.log("arrCumRap", arrCumRap);
+   // console.log("arrCumRap", arrCumRap);
     const renderPartner = () => {
         return arrCumRap?.map((rapFilm, index) => {
             return <li  key={index} className='ml-5'>

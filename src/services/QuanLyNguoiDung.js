@@ -26,6 +26,12 @@ export class QuanLyNguoiDung extends BaseService{
     themNguoiDung =(newUser)=>{
         return this.post(`api/QuanLyNguoiDung/ThemNguoiDung`,newUser);
     }
+    xoaNguoiDung = (username)=>{
+        return this.delete(`api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${username}`);
+    }
+    capNhatThongTinNguoiDungByAdmin= (user)=>{
+        return this.post(`api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,user);
+    }
 }
 
 export const quanLyNguoiDung = new QuanLyNguoiDung();

@@ -4,18 +4,19 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, useHistory } from 'react-router-dom'
 import { history } from '../../App'
 import { datVeAction, layDanhSachPhongVeAction } from '../../redux/actions/QuanLyDatVeAction'
-import { TOKEN } from '../../util/setting.js/config'
+import { TOKEN, USER_LOGIN } from '../../util/setting.js/config'
 import checkoutStyle from "../Checkout/CheckoutStyle.module.css"
 import {
   UserOutlined
 } from '@ant-design/icons';
 import { DAT_VE } from '../../redux/actions/types/QuanLyDatVe'
 import _ from 'lodash';
-import { Dropdown, Popconfirm, Tabs,Menu } from 'antd';
+import { Dropdown, Popconfirm, Tabs,Menu, Button } from 'antd';
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe'
 import { layThongTinLichChieuPhimAction } from '../../redux/actions/QuanLyPhimActions'
 import { layThongTinTaiKhoanAction } from '../../redux/actions/QuanLyNguoIDungActions'
 import { CHUYEN_TAB_ACTION } from '../../redux/actions/ChuyenTabAction'
+import UserHeader from '../../components/UserAvatar/UserHeader'
 
 
 
@@ -140,13 +141,16 @@ export default function (props) {
     // message.info(`Click on item ${key}`);
 
   };
+  const taiKhoan = JSON.parse(localStorage.getItem(USER_LOGIN));
   const menu = (
     <Menu
       onClick={dropDownHandler}
       items={[
         {
           label: (
-            <p>Profile</p>
+            <p onClick={()=>{
+              history.push(`/profile/${taiKhoan.taiKhoan}`)
+            }}>Profile</p>
           ),
           key: "profile"
         },
@@ -168,15 +172,16 @@ export default function (props) {
   );
   const { tabActive } = useSelector(state => state.QuanLyDatVeState);
   const { userLogin } = useSelector(state => state.QuanlyNguoiDungState);
-  const operations =    <Dropdown overlay={menu} trigger={['click']}>
-      <div className="items-center flex cursor-pointer mr-16">
-        <img src="https://picsum.photos/50" className='rounded-full' />
-        <p className='m-0 ml-2'>Hello, {userLogin.hoTen}</p>
-      </div>
-    </Dropdown>
+  // const operations =  <Dropdown overlay={menu} trigger={['click']}>
+  //     <div className="items-center flex cursor-pointer mr-16">
+  //       <img src="https://picsum.photos/50" className='rounded-full' />
+  //       <p className='m-0 ml-2'>Hello, {userLogin.hoTen}</p>
+  //     </div>
+  //   </Dropdown>
+  const operations =  <UserHeader menu={menu}></UserHeader>
 
   const dispacth = useDispatch();
-  return <Tabs size='large' tabBarExtraContent={operations} defaultActiveKey="1" activeKey={tabActive.toString()} type="card" onTabClick={(e) => {
+  return <Tabs size='large'  tabBarExtraContent={operations} defaultActiveKey="1" activeKey={tabActive.toString()} type="card" onTabClick={(e) => {
     dispacth(CHUYEN_TAB_ACTION(e))
   }}>
     <TabPane tab="01 CHON GHE THANH TOAN" key="1">
@@ -191,11 +196,12 @@ export default function (props) {
 
 function KetQuaDatVe(props) {
   const { thongTinTaiKhoan } = useSelector(state => state.QuanlyNguoiDungState);
+  const {tabActive} = useSelector(state => state.QuanLyDatVeState);
   const dispatch = useDispatch();
   useEffect(() => {
     let action = layThongTinTaiKhoanAction();
     dispatch(action);
-  }, [])
+  }, [tabActive])
   console.log({ thongTinTaiKhoan });
   const renderHistory = () => {
     return thongTinTaiKhoan?.thongTinDatVe?.map((info, index) => {
@@ -231,6 +237,11 @@ function KetQuaDatVe(props) {
           <div className="flex flex-col text-center w-full mb-10">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Thank you {thongTinTaiKhoan.hoTen}</h1>
             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Welcome to MyMovieTheater - Enjoy your movie in your own style</p>
+          </div>
+          <div>
+            <Button onClick={()=>{
+              history.push('/')
+            }}>Back To Home</Button>
           </div>
           {/* Movie ticket render */}
           <div>

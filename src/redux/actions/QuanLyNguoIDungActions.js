@@ -3,8 +3,8 @@ import { history } from "../../App";
 import { quanLyNguoiDung } from "../../services/QuanLyNguoiDung"
 import { openNotificationWithIcon } from "../../util/Notification/Notification";
 import { TOKEN, USER_LOGIN, USER_SESSION } from "../../util/setting.js/config";
-import { HIDE_LOADING_ACTION, HIDE_LOADING_TABLE_ACTION, SHOW_LOADING_ACTION } from "./LoadingAction,";
-import { LOGIN, SAVE_THONG_TIN_TAI_KHOAN, SET_DANH_SACH_NGUOI_DUNG } from "./types/QuanLyNguoiDung";
+import { HIDE_LOADING_ACTION, HIDE_LOADING_TABLE_ACTION, SHOW_LOADING_ACTION, SHOW_LOADING_TABLE_ACTION } from "./LoadingAction,";
+import { LOGIN, SAVE_THONG_TIN_TAI_KHOAN, SET_DANH_SACH_NGUOI_DUNG, SET_LOAI_NGUOI_DUNG } from "./types/QuanLyNguoiDung";
 
 export const dangNhapAction = (user) => {
     return async (dispatch) => {
@@ -40,7 +40,7 @@ export const layThongTinTaiKhoanAction = () => {
             let response = await quanLyNguoiDung.layThongTinTaiKhoan();
             let { data, status } = response;
             if (status === 200) {
-                console.log("thongTinTaiKhoan", data.content);
+               // console.log("thongTinTaiKhoan", data.content);
                 dispatch({
                     type: SAVE_THONG_TIN_TAI_KHOAN,
                     data: data.content
@@ -74,6 +74,7 @@ export const dangKyAction = (values) => {
 
 export const layDanhSachNguoiDungAction = (keyWord) => {
     return async (dispatch) => {
+        dispatch((SHOW_LOADING_TABLE_ACTION()));
         try {
             let res = await quanLyNguoiDung.layDanhSachNguoiDung(keyWord);
             if (res.data.statusCode === 200) {
@@ -95,17 +96,53 @@ export const layDanhSachNguoiDungAction = (keyWord) => {
 
 export const themNguoiDungAction = (newUser) => {
     return async (dispatch) => {
+        await dispatch(SHOW_LOADING_ACTION());
         try {
             let res = await quanLyNguoiDung.themNguoiDung(newUser);
-            console.log({res})
+            console.log({ res })
             if (res.data.statusCode === 200) {
-                openNotificationWithIcon("success", "SUCCESS", res.data.message,"top");
+                openNotificationWithIcon("success", "SUCCESS", res.data.message, "top");
                 window.location.reload();
             }
         } catch (error) {
             let data = error.response.data;
             openNotificationWithIcon("error", data.message, data.content, "top");
         }
+        await dispatch(HIDE_LOADING_ACTION());
     }
-
+}
+export const layDanhSachLoaiNguoiDungAction = () => {
+    return async (dispatch) => {
+        try {
+            let res = await quanLyNguoiDung.layDanhSachLoaiNguoiDung();
+            if (res.data.statusCode === 200) {
+                dispatch({
+                    type: SET_LOAI_NGUOI_DUNG,
+                    data: res.data.content
+                })
+            }
+        } catch (error) {
+            // console.log(error.response.data);
+        }
+    }
+}
+export const capNhatThongTinNguoiDungByAdminAction = (user)=>{
+    return async(dispatch)=>{
+        try{
+            dispatch(SHOW_LOADING_ACTION());
+            let res = await quanLyNguoiDung.capNhatThongTinNguoiDungByAdmin(user);
+            if (res.data.statusCode === 200){
+                openNotificationWithIcon("success","SUCCESS",res.data.message,"top");
+                await dispatch(layThongTinTaiKhoanAction());
+                console.log({history,user});
+                history.goBack();
+                
+              
+            }
+        }catch(error){
+            let data = error.response.data;
+            openNotificationWithIcon("error","Error",data.message,"top");
+        }
+        dispatch(HIDE_LOADING_ACTION());
+    }
 }

@@ -24,9 +24,11 @@ import AddNewMovie from './pages/Admin/Films/AddNewMovie';
 import EditMovie from './pages/Admin/Films/EditMovie';
 
 // Import
-import 'react-confirm-alert/src/react-confirm-alert.css'; 
+import 'react-confirm-alert/src/react-confirm-alert.css';
 import AddSchedule from './pages/Admin/Films/AddSchedule';
 import UserManagement from './pages/Admin/UserManagement/UserManagement';
+import EditUser from './pages/Admin/UserManagement/EditUser';
+import Profile from './pages/Admin/UserManagement/Profile';
 
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
@@ -36,50 +38,54 @@ export const history = createBrowserHistory();
 
 function App() {
   return (
-    <div style={{height: "100%"}}>
-<Router history={history}>
-      <LoadingAnimation></LoadingAnimation>
-      <Switch>
-        {/* ROUTE TO HOME COMPONENT */}
-        <HomeTemplate exact path="/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
-        <HomeTemplate exact path="/home" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
-        {/* ADMIN */}
-        <AdminTemplate exact path='/admin' DestinationComponent={Dashboard}></AdminTemplate>
-        <AdminTemplate exact path='/admin/users' DestinationComponent={Dashboard} ></AdminTemplate>
-        <AdminTemplate exact path='/admin/films' DestinationComponent={Films} ></AdminTemplate>
-        <AdminTemplate exact path='/admin/films/addnewmovie' DestinationComponent={AddNewMovie} ></AdminTemplate>
-        <AdminTemplate exact path='/admin/films/editmovie/:id' DestinationComponent={EditMovie}></AdminTemplate>
-        <AdminTemplate exact path="/admin/films/addnewschedule/:id/:tenPhim" DestinationComponent={AddSchedule}></AdminTemplate>
-        <AdminTemplate exact path="/admin/usermanagement" DestinationComponent={UserManagement}></AdminTemplate>
-        {/* ROUTE TO CONTACT */}
-        <HomeTemplate exact path='/contact' DestinationComponent={Contact}></HomeTemplate>
-
-        {/* ROUTE TO NEWS */}
-        <HomeTemplate exact path='/news' DestinationComponent={News}></HomeTemplate>
-
-        {/* ROUTE TO MOVIE DETAIL BY MOVIE ID */}
-        <HomeTemplate exact path='/detail/:id' DestinationComponent={Detail}></HomeTemplate>
+    <div style={{ height: "100%" }}>
+      <Router history={history}>
+        <LoadingAnimation></LoadingAnimation>
+        <Switch>
+          {/* ROUTE TO HOME COMPONENT */}
+          <HomeTemplate exact path="/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
+          <HomeTemplate exact path="/home" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
+          {/* ADMIN */}
+          <AdminTemplate exact path='/admin' DestinationComponent={UserManagement}></AdminTemplate>
+          <AdminTemplate exact path='/admin/users' DestinationComponent={UserManagement} ></AdminTemplate>
+          <AdminTemplate exact path='/admin/films' DestinationComponent={Films} ></AdminTemplate>
+          <AdminTemplate exact path='/admin/films/addnewmovie' DestinationComponent={AddNewMovie} ></AdminTemplate>
+          <AdminTemplate exact path='/admin/films/editmovie/:id' DestinationComponent={EditMovie}></AdminTemplate>
+          <AdminTemplate exact path="/admin/films/addnewschedule/:id/:tenPhim" DestinationComponent={AddSchedule}></AdminTemplate>
+          <AdminTemplate exact path="/admin/usermanagement" DestinationComponent={UserManagement}></AdminTemplate>
+          <AdminTemplate exact path="/admin/usermanagement/:taiKhoan" DestinationComponent={EditUser}></AdminTemplate>
+          <HomeTemplate exact path = '/profile/:taiKhoan' DestinationComponent={Profile}></HomeTemplate>
 
 
-        {/* ROUTE TO LOGIN */}
-        <LoginTemplate exact path='/login' DestinationComponent={Login}></LoginTemplate>
+          {/* ROUTE TO CONTACT */}
+          <HomeTemplate exact path='/contact' DestinationComponent={Contact}></HomeTemplate>
 
-        {/* ROUTE TO Register */}
-        <LoginTemplate exact path='/register' DestinationComponent={Register}></LoginTemplate>
+          {/* ROUTE TO NEWS */}
+          <HomeTemplate exact path='/news' DestinationComponent={News}></HomeTemplate>
 
-        {/* ROUTE TO CHECKOUT */}
-        <Suspense fallback={<h1>LOADING...</h1>}>
-          <CheckoutTemplate exact path='/checkout/:maLichChieu' DestinationComponent={Checkout} ></CheckoutTemplate>
-        </Suspense>
+          {/* ROUTE TO MOVIE DETAIL BY MOVIE ID */}
+          <HomeTemplate exact path='/detail/:id' DestinationComponent={Detail}></HomeTemplate>
 
 
+          {/* ROUTE TO LOGIN */}
+          <LoginTemplate exact path='/login' DestinationComponent={Login}></LoginTemplate>
+
+          {/* ROUTE TO Register */}
+          <LoginTemplate exact path='/register' DestinationComponent={Register}></LoginTemplate>
+
+          {/* ROUTE TO CHECKOUT */}
+          <Suspense fallback={<h1>LOADING...</h1>}>
+            <CheckoutTemplate exact path='/checkout/:maLichChieu' DestinationComponent={Checkout} ></CheckoutTemplate>
+          </Suspense>
 
 
-      </Switch>
 
-    </Router>
+
+        </Switch>
+
+      </Router>
     </div>
-    
+
   );
 }
 

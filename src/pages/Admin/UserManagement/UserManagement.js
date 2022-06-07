@@ -1,16 +1,23 @@
-import { CalendarOutlined } from '@ant-design/icons';
+
 import { DeleteOutlined } from '@ant-design/icons';
 import { EditOutlined } from '@ant-design/icons';
 import { AutoComplete, Button, Modal, Table, Select, Form } from 'antd';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useMemo} from 'react'
 import { useDispatch, useSelector,connect } from 'react-redux';
 import { layDanhSachNguoiDungAction, themNguoiDungAction } from '../../../redux/actions/QuanLyNguoIDungActions';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
-import { GROUPID } from '../../../util/setting.js/config';
+import { GROUPID, USER_LOGIN } from '../../../util/setting.js/config';
 import { loaiNguoiDung } from '../../../_core/models/LoaiNguoiDungModel';
 import { quanLyNguoiDung } from '../../../services/QuanLyNguoiDung';
 import { openNotificationWithIcon } from '../../../util/Notification/Notification';
+import {  HIDE_LOADING_TABLE_ACTION , SHOW_LOADING_TABLE_ACTION } from '../../../redux/actions/LoadingAction,';
+import { history } from '../../../App';
+import _ from 'lodash';
+import { UserOutlined } from '@ant-design/icons';
+import { NavLink } from 'react-router-dom';
+
+
 
 const { Option } = Select;
 
@@ -31,6 +38,7 @@ export function UserManagement(props) {
     } = props;
     //console.log("prop",props)
     useEffect(() => {
+        
         dispatch(layDanhSachNguoiDungAction(""));
         dispatch(async () => {
             try {
@@ -39,14 +47,18 @@ export function UserManagement(props) {
                     setLoaiNguoiDungOption(res.data.content);
                 }
             } catch (error) {
-                console.log(error.response.data);
+                // console.log(error.response.data);
             }
         })
     }, [])
     const showModal = () => {
         setVisible(true)
     };
-
+    const onChangeAutocomplete = (event)=>{
+        //console.log(event);// uncomment to see the event value
+        dispatch(layDanhSachNguoiDungAction(event));
+    }
+    const debounceAutoComplete = useMemo(() => _.debounce(onChangeAutocomplete,300), [])
     const columns = [
         {
             title: 'Username',
@@ -88,19 +100,34 @@ export function UserManagement(props) {
             title: "Actions",
             dataIndex: 'actions',
             render: (text, record) => {
+                let currentUser =JSON.parse(localStorage.getItem(USER_LOGIN));
+                if (record.taiKhoan === currentUser.taiKhoan){
+                    return <NavLink to={`/profile/${record.taiKhoan}`}>
+                          <Button type='success' icon={<UserOutlined></UserOutlined>}>Go to Profile</Button>
+                    </NavLink>
+                  
+                } 
                 return <div key={record.maPhim}>
                     <Button onClick={() => {
-
-                        // history.push(`/admin/films/editmovie/${record.maPhim}`);
+                        history.push(`/admin/usermanagement/${record.taiKhoan}`);
                     }} className="mx-2" type="primary" icon={<EditOutlined />} size="medium" />
 
-                    <Button onClick={() => {
-
+                    <Button onClick={async() => {
+                        // DELETE NGUOI DUNG
+                        await dispatch(SHOW_LOADING_TABLE_ACTION());
+                        try{
+                            let res = await quanLyNguoiDung.xoaNguoiDung(record.taiKhoan);
+                            if(res.data.statusCode === 200){
+                                openNotificationWithIcon("success",res.data.message,res.data.content,"top");
+                                await dispatch(layDanhSachNguoiDungAction(""));
+                            }
+                        }catch(error){
+                            let data = error.response.data;
+                            openNotificationWithIcon("error",data.message,data.content,"top");
+                        }
+                        await dispatch(HIDE_LOADING_TABLE_ACTION());
                     }} className="mx-2" type="danger" icon={<DeleteOutlined />} size="medium" />
 
-                    <Button onClick={() => {
-
-                    }} className="mx-2" type="primary" icon={<CalendarOutlined />} size="medium" />
                 </div>
             },
             width: "15%",
@@ -114,10 +141,10 @@ export function UserManagement(props) {
                 <AutoComplete
                     dropdownMatchSelectWidth={252}
                     className="w-1/2 "
-                // onChange={onSearch}
+                onChange={debounceAutoComplete}
 
                 //onSearch={onSearch}
-                // options={DefaultarrFilm.map((item, index) => { return { value: item.tenPhim, label: item.tenPhim } })}
+                options={danhSachNguoiDung.map((item, index) => { return { value: item.taiKhoan, label: item.taiKhoan } })}
                 />
                 {/* <Input.Search size="large" placeholder="input here" enterButton /> */}
 
@@ -187,8 +214,9 @@ export function UserManagement(props) {
                       
                         </div>
                         <div className='py-12 text-right'>
-                            <button onChange={()=>{
+                            <button onClick={()=>{
                                 setVisible(false);
+                                
                             }} className=" bg-red-500 text-gray-100 p-2 mx-2 rounded-md tracking-wide font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-red-600 shadow-lg">
                                 Cancel
                             </button>
@@ -227,8 +255,8 @@ const HandleAddNewUserFormWithFormik = withFormik({
         })
     }),
     handleSubmit: async (values, { props }) => {
-        console.log("values", values);
-        console.log("prosp", props)
+        // console.log("values", values);
+        // console.log("prosp", props)
         // dispact actions as a function to middleware
           const dispatch = props.dispatch; // dispatch khong can phair props.dispatch()
             let action = themNguoiDungAction(values);

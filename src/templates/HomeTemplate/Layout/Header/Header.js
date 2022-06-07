@@ -5,57 +5,16 @@ import { Login } from '../../../../pages/Login/Login';
 import { USER_LOGIN } from '../../../../util/setting.js/config';
 import _ from "lodash"
 import { Dropdown, Menu, message, Popconfirm } from 'antd';
+import UserHeader from '../../../../components/UserAvatar/UserHeader';
 export default function Header(props) {
     const history = useHistory();
     const { userLogin } = useSelector(state => state.QuanlyNguoiDungState);
-    const dropDownHandler = ({ key }) => {
-        // message.info(`Click on item ${key}`);
- 
-    };
-        const menu = (
-            <Menu
-                onClick={dropDownHandler}
-                items={[
-                    {
-                        label: (
-                            <NavLink to="/">Profile</NavLink>
-                        ),
-                        key: "profile"
-                    },
-                    {
-                        label: (
-                            <NavLink to="/admin">Management</NavLink>
-                        ),
-                        key: "management"
-                    },
-                    {
-                        label: (
-                            <Popconfirm placement="top" title="Do you want to sign out" onConfirm={()=>{
-                                localStorage.clear();
-                                // refresh whole pages to refresh all store in redux
-                                window.location.reload( );
-                            }} okText="Yes" cancelText="No">
-                            <p>Sign Out</p>
-                        </Popconfirm>
-                        ),
-                        key: 'signOut'
-                    },
-                ]}
-            />
-        );
+
     //console.log({ userLogin })
 
     const loginValidation = () => {
         if (!_.isEmpty(userLogin)) {
-            return <>
-                <Dropdown arrow={true} overlay={menu}  trigger={['click']}>
-                    <div  className="items-center flex cursor-pointer">
-                        <img src="https://picsum.photos/50" className='rounded-full' />
-                        <p className='m-0 ml-2'>Hello, {userLogin.hoTen}</p>
-                    </div>
-                </Dropdown>
-
-            </>
+            return <UserHeader></UserHeader>
 
         }
         return <>

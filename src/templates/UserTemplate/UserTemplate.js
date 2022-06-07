@@ -1,5 +1,5 @@
 import { Redirect, Route } from "react-router-dom"
-import { Fragment } from "react"
+import React, { useState, Fragment } from 'react'
 
 const  UserTemplate = (props)=> {
     // Destination se la main component se
@@ -8,6 +8,7 @@ const  UserTemplate = (props)=> {
     //     return <Redirect to="/login"></Redirect>
     // }
    // console.log("propsHere",props);
+   const [collapsed, setCollapsed] = useState(false);
   return ( 
     <Route {...resProps} render={(propsRoute)=>{
         // voi render ta moi co the render ra duoc DestinationComponent, if not ta khong the render compoent
