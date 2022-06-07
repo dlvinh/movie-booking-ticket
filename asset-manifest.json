@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/movie-booking-ticket/static/css/main.d272aa6f.css",
+    "main.js": "/movie-booking-ticket/static/js/main.3d95dac3.js",
+    "static/js/989.0f7a940f.chunk.js": "/movie-booking-ticket/static/js/989.0f7a940f.chunk.js",
+    "static/media/slick.svg": "/movie-booking-ticket/static/media/slick.2630a3e3eab21c607e21.svg",
+    "static/media/slick.eot": "/movie-booking-ticket/static/media/slick.a4e97f5a2a64f0ab1323.eot",
+    "static/media/slick.ttf": "/movie-booking-ticket/static/media/slick.c94f7671dcc99dce43e2.ttf",
+    "static/media/slick.woff": "/movie-booking-ticket/static/media/slick.295183786cd8a1389865.woff",
+    "index.html": "/movie-booking-ticket/index.html",
+    "main.d272aa6f.css.map": "/movie-booking-ticket/static/css/main.d272aa6f.css.map",
+    "main.3d95dac3.js.map": "/movie-booking-ticket/static/js/main.3d95dac3.js.map",
+    "989.0f7a940f.chunk.js.map": "/movie-booking-ticket/static/js/989.0f7a940f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d272aa6f.css",
+    "static/js/main.3d95dac3.js"
+  ]
+}
