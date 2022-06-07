@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkmovie_booking_ticket=self.webpackChunkmovie_booking_ticket||[]).push([[989],{7989:function(n,e,o){o.r(e);var t=o(1413),i=o(5987),r=o(9271),s=o(2791),u=o(184),c=["DestinationComponent"];e.default=function(n){var e=n.DestinationComponent,o=(0,i.Z)(n,c);return(0,u.jsx)(r.AW,(0,t.Z)((0,t.Z)({},o),{},{render:function(n){return console.log("propsRoute",n),(0,u.jsx)(s.Fragment,{children:(0,u.jsx)(e,{propsRoute:n})})}}))}}}]);
+//# sourceMappingURL=989.7fc9cd5f.chunk.js.map
