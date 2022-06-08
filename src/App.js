@@ -59,7 +59,6 @@ function App() {
 
           {/* ROUTE TO CONTACT */}
           <HomeTemplate exact path='/contact' DestinationComponent={Contact}></HomeTemplate>
-
           {/* ROUTE TO NEWS */}
           <HomeTemplate exact path='/news' DestinationComponent={News}></HomeTemplate>
 

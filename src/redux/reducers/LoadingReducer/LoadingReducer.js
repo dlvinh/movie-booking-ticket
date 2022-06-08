@@ -16,12 +16,12 @@ export const LoadingReducer = (state = initialState, action) => {
             return { ...state };
         }
         case SHOW_LOADING_TABLE: {
-            console.log("Table Loading show")
+            //console.log("Table Loading show")
             state.isTableLoadingShow = true;
             return { ...state };
         }
         case HIDE_LOADING_TABLE: {
-            console.log("Table Loading hide")
+           // console.log("Table Loading hide")
             state.isTableLoadingShow = false;
             return { ...state };
         }

@@ -13,7 +13,7 @@ export const HomeTemplate = (props)=> {
     <Route {...resProps} render={(propsRoute)=>{
         // voi render ta moi co the render ra duoc DestinationComponent, if not ta khong the render compoent
         // propsRoute is option => propsRoute (thong thuong la history, map, location) duoc truyen cho Destination component as a props de chuyen huong trang
-        console.log("propsRoute",propsRoute); // let see what is it 
+       // console.log("propsRoute",propsRoute); // let see what is it 
         return <React.Fragment>
            <Header></Header>
           

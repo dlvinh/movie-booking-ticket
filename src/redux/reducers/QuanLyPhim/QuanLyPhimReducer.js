@@ -11,7 +11,7 @@ const stateDefault = {
 export const QuanLyPhimReducer = (state = stateDefault, action)=>{
     switch(action.type){
         case SET_PHIM: {
-           console.log("Setting-phim",action.data);
+           //console.log("Setting-phim",action.data);
             const currentMovie = action.data.filter(movie => { return movie.sapChieu === true});
             state.arrFilms = currentMovie;
             state.DefaultarrFilm = action.data;
@@ -35,7 +35,7 @@ export const QuanLyPhimReducer = (state = stateDefault, action)=>{
             return {...state};
         }
         case SET_THONG_TIN_PHIM:{
-            console.log("Set thong tin phim....", action.data)
+            //console.log("Set thong tin phim....", action.data)
             state.thongTinPhim = action.data;
             return {...state};
         }

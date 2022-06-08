@@ -53,7 +53,7 @@ export class Profile extends Component {
     }
     cancelFormHandler() {
         let compareRes = _.isEqual(this.props.values, this.props.initialValues);
-        console.log({ compareRes });
+       // console.log({ compareRes });
         if (!compareRes) {
             if (window.confirm("Cancel your changes?") == true) {
                 this.props.setFieldValue("email", this.props.thongTinTaiKhoan.email);
@@ -155,11 +155,11 @@ export class Profile extends Component {
         </div>
     }
     componentDidMount() {
-        console.log("didmount")
+       // console.log("didmount")
         this.props.layThongTinTaiKhoan();
     }
     render() {
-        console.log("renderProps", this.props);
+      //  console.log("renderProps", this.props);
         return (
 
             // <div className={`border-b border-gray-200 dark:border-gray-700 py-10`} style={{ backgroundColor: `rgb(228 190 148)`, height: 'auto', backgroudPosition: `center`, backgroundRepeat: 'no-repeat', backgroundSize: `cover` }}>
@@ -240,7 +240,7 @@ const mapDispatchToProps = (dispatch) => {
 const HandleUpdateUserFormWithFormik = withFormik({
     enableReinitialize: true,
     mapPropsToValues: (props) => {
-        console.log("propsFormik", props);
+      //  console.log("propsFormik", props);
         const thongTinTaiKhoan = props.thongTinTaiKhoan;
         //console.log("thongTinTaiKhoanFormik", thongTinTaiKhoan);
         return {
@@ -265,8 +265,8 @@ const HandleUpdateUserFormWithFormik = withFormik({
         })
     }),
     handleSubmit: async (values, { props }) => {
-        console.log("values", values);
-        console.log("prosp", props);
+        // console.log("values", values);
+        // console.log("prosp", props);
         confirmAlert({
             title: 'Confirm to to save changes',
             message: 'Update Profile',
@@ -274,7 +274,7 @@ const HandleUpdateUserFormWithFormik = withFormik({
                 {
                     label: 'Save Changes',
                     onClick: async () => {
-                        console.log("PROFILE EDDITING")
+                      //  console.log("PROFILE EDDITING")
                         await props.capNhatThongTinNguoiDungByAdmin(values);
 
                     }
