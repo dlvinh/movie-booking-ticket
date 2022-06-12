@@ -7,6 +7,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { layThongTinLichChieuPhimAction } from '../../redux/actions/QuanLyPhimActions';
 import moment from 'moment';
+import MovieDetailBanner from '../../components/MovieDetail/MovieDetailBanner';
 
 const { TabPane } = Tabs;
 export default function Detail(props) {
@@ -97,7 +98,9 @@ export default function Detail(props) {
                     </div>
                 </div>
             </div>
+            {/* <MovieDetailBanner movieItem = {filmDetail} ></MovieDetailBanner> */}
         </div>
+        // return <MovieDetailBanner movieItem = {filmDetail} ></MovieDetailBanner>
     }
     return (
         <div style={backGroundStyle}>

@@ -7,6 +7,7 @@ const stateDefault = {
     filmDetail:"",
     thongTinPhim:{},
     danhSachAutoComplete:[],
+    danhSachTopMovie:[],
 }
 export const QuanLyPhimReducer = (state = stateDefault, action)=>{
     switch(action.type){

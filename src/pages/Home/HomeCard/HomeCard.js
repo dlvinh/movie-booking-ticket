@@ -15,7 +15,7 @@ export default function HomeCard(props) {
   
     const dispacth = useDispatch()
     useEffect(()=>{
-        let action = layDanhSachPhimAction();
+        let action = layDanhSachPhimAction("");
         dispacth (action); // dispacth direct to middleWare
     },[])
     // const renderFilm = () => {

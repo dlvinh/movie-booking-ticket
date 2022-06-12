@@ -6,6 +6,7 @@ import { USER_LOGIN } from '../../../../util/setting.js/config';
 import _ from "lodash"
 import { Dropdown, Menu, message, Popconfirm } from 'antd';
 import UserHeader from '../../../../components/UserAvatar/UserHeader';
+import style from "./HeaderStyle.module.css";
 export default function Header(props) {
     const history = useHistory();
     const { userLogin } = useSelector(state => state.QuanlyNguoiDungState);
@@ -30,7 +31,7 @@ export default function Header(props) {
     }
 
     return (
-        <header className="p-4 dark:bg-coolGray-800 dark:text-coolGray-100 relative z-10 bg-gray-700 text-white ">
+        <header className={`${style.header} p-4 dark:bg-coolGray-800 dark:text-coolGray-100 relative z-10 bg-gray-700 text-white `}>
             <div className=" container flex justify-between h-16 mx-auto md:justify-center md:space-x-8">
                 <ul className="items-stretch hidden space-x-3 md:flex">
                     <li className="flex">
