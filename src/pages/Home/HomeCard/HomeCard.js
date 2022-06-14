@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { render } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Slider from "react-slick";
-import Film from '../../../components/Film/Film';
+
 import MultipleRowSlick from '../../../components/RSlick/MultipleRowSlick';
 import { layDanhSachPhimAction } from '../../../redux/actions/QuanLyPhimActions';
 import { SET_COMMINGSOON_MOVIE, SET_CURRENT_MOVIE } from '../../../redux/actions/types/QuanLyPhimType';
-
-
+import style from './style.module.css'
 export default function HomeCard(props) {
     const {arrFilms} = useSelector(state => {
         return state.QuanLyPhimState
@@ -25,19 +22,18 @@ export default function HomeCard(props) {
     //     })
     // }
     const [activeButton,setActiveButton] = useState(true);
-    const activeClass = 'px-8 py-3 font-semibold rounded bg-gray-800 text-white mr-2'
-    const defaultClass = 'px-8 py-3 font-semibold rounded bg-white text-gray-800 border-gray-800 border'
+    const activeClass = style["active-button"];
     
 
     return <React.Fragment >
         <div className='mb-4'>
-            <button className={activeButton? activeClass : defaultClass} onClick={()=>{
+            <button className={`${style['button']} px-8 py-3 font-semibold rounded text-white border-2  mr-2 ${activeButton ? activeClass: ""}`} onClick={()=>{
                 setActiveButton(true)
                 dispacth({
                     type: SET_CURRENT_MOVIE
                 })
             }}>Current</button>
-            <button className={!activeButton ? activeClass: defaultClass} onClick={()=>{
+            <button className={`${style['button']} px-8 py-3 font-semibold rounded text-white  border-2 mr-2 ${!activeButton ? activeClass:"" }`} onClick={()=>{
                 setActiveButton(false)
                 dispacth({
                     type: SET_COMMINGSOON_MOVIE

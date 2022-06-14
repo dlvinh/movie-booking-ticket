@@ -105,11 +105,11 @@ export default function Detail(props) {
     return (
         <div style={backGroundStyle}>
             <CustomCard
-                effectColor="#FFF" // required
+                effectColor="#5f5f60c2" // required
                 color="#14AEFF" // default color is white
                 blur={20} // default blur value is 10px
                 borderRadius={0} // default border radius value is 10px
-                style={{ height: "fit-content", backgroundColor: "rgba(80, 77, 77, 0.5)" }}
+                style={{ height: "fit-content", backgroundColor: "#00091d85" }}
             >
                 {/* DEtial content */}
                 {renderMovieDetail()}

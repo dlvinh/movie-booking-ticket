@@ -36,7 +36,7 @@ export const history = createBrowserHistory();
 
 function App() {
   return (
-    <div style={{ height: "100%" }}>
+    <div style={{ height: "100%", backgroundColor:"#00091d",color: 'white' }}>
       <Router history={history}>
         <LoadingAnimation></LoadingAnimation>
         <Switch>

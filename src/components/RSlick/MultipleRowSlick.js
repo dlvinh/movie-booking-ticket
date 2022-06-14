@@ -39,7 +39,7 @@ export default class MultipleRowSlick extends Component {
             className: "center variable-width",
             centerMode: true,
             infinite: true,
-            centerPadding: "60px",
+            height:500,
             slidesToShow: 3,
             speed: 500,
             rows: 1,

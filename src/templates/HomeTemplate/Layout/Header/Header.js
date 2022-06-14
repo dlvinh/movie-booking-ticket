@@ -35,10 +35,10 @@ export default function Header(props) {
             <div className=" container flex justify-between h-16 mx-auto md:justify-center md:space-x-8">
                 <ul className="items-stretch hidden space-x-3 md:flex">
                     <li className="flex">
-                        <NavLink to="/home" className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-white" activeClassName='border-b-1 border-violet-400 text-violet-400'>Home</NavLink>
+                        <NavLink to="/home" className={`flex items-center px-4 -mb-1 text-white ${style['nav-header']}`} activeClassName={style['active-link']}>Home</NavLink>
                     </li>
                     <li className="flex">
-                        <NavLink to="/news" className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-white" activeClassName='border-b-1 border-violet-400 text-violet-400'> News</NavLink>
+                        <NavLink to="/news" className={`flex items-center px-4 -mb-1  text-white ${style['nav-header']}`} activeClassName={style['active-link']}> News</NavLink>
                     </li>
 
                 </ul>
@@ -47,10 +47,10 @@ export default function Header(props) {
                 </NavLink>
                 <ul className="items-stretch hidden space-x-3 md:flex">
                     <li className="flex">
-                        <NavLink to="/theater" className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-white" activeClassName='border-b-1 border-violet-400 text-violet-400'>Theaters</NavLink>
+                        <NavLink to="/theater"  className={`flex items-center px-4 -mb-1 text-white  ${style['nav-header']}`} activeClassName={style['active-link']}>Theaters</NavLink>
                     </li>
                     <li className="flex">
-                        <NavLink to="/contact" className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-white" activeClassName='border-b-1 border-violet-400 text-violet-400'>Contact</NavLink>
+                        <NavLink to="/contact" className={`flex items-center px-4 -mb-1 text-white ${style['nav-header']}`} activeClassName={style['active-link']}>Contact</NavLink>
                     </li>
                     {/* <li className="flex">
                         <NavLink  to="#" className="flex items-center px-4 -mb-1 border-b-2 dark:border-transparent text-white" activeClassName='border-b-1 border-violet-400 text-violet-400'>Link</NavLink>

@@ -35,7 +35,7 @@ export default function CarouselLayout() {
   // GET DU LIEU thong qua reducer
   const bannersList = useSelector(state => {
     const arrFilms = state.QuanLyPhimState.arrFilms;
-    console.log({ arrFilms });
+   // console.log({ arrFilms });
     let topMovieLst = _.filter(arrFilms, function (item) {
       return item.danhGia > 7
     })
@@ -43,7 +43,7 @@ export default function CarouselLayout() {
     if (topMovieLst.length > 5) {
       topMovieLst = topMovieLst.splice(0, 4);
     }
-    console.log({ topMovieLst })
+   // console.log({ topMovieLst })
     return topMovieLst
   })
   // console.log(bannersList);

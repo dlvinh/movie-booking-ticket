@@ -1,0 +1,14 @@
+.active-button{
+    background: #02091d;
+    border: 2px solid #00abff;
+    color: white;
+    box-shadow: 0px 0px 20px 4px #00abff;
+}
+.button{
+    transition-duration: 0.25s;
+}
+.button:hover{
+   box-shadow: 0px 0px 20px 4px #fe019a;
+   border: 2px solid #fe019a;
+   
+}

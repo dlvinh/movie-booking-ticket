@@ -4,3 +4,15 @@
     top: 0;
     width: 100%;
 }
+.active-link{
+    color: #fe019a;
+    border-bottom: #fe019a 2px solid;
+}
+.nav-header{
+    font-size: 20px;
+}
+.nav-header:hover{
+    color: #fe019a;
+    border-bottom: #fe019a 2px solid;
+}
+

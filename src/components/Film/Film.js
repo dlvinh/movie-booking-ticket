@@ -1,7 +1,7 @@
 import React from 'react'
 import {NavLink} from 'react-router-dom'
 export default function Film(props) {
-    const { tenPhim, hinhAnh, moTa,maPhim } = props.film;
+    const { tenPhim, hinhAnh, moTa,maPhim,trailer } = props.film;
    
     const backgroundStyle = {
         backgroundImage: `url(${hinhAnh})`,
@@ -14,10 +14,17 @@ export default function Film(props) {
     }
     const shortDes = moTa.length > 50 ? moTa.toString().substring(0, 30) + "..." : moTa
     return (
-        <div className="max-w-xs rounded-md shadow-md bg-coolGray-900 text-coolGray-50" style={{ backgroundColor: "#cdcdcd29", height: "100%" }} >
+        <div className="max-w-xs rounded-md shadow-md bg-coolGray-900 text-coolGray-50" style={{ backgroundColor: "#cdcdcd29", height: "fit-content" }} >
             <article className="flex flex-col dark:bg-coolGray-900">
-                <div style={backgroundStyle}>
+                {/* <div style={backgroundStyle}>
                     <img alt={tenPhim} className="object-cover w-full h-32 dark:bg-coolGray-500" src={hinhAnh} style={{opacity:0}} />
+              </div> */}
+              <div>
+                <iframe width="560" height="315" title={tenPhim} loading='lazy' allowFullScreen frameborder="5" className='w-full' src={trailer.replace( new RegExp(/(https:\/\/www.youtube.com\/watch\?v=)|(https:\/\/youtu\.be\/)/,"gm"),"https://www.youtube.com/embed/")} onError={(e)=>{
+                    console.log("e",e);
+                }}>
+                       
+                </iframe>
               </div>
                 <div className="flex flex-col flex-1 p-6">
                     <NavLink to="/" className="text-lg tracking-wider uppercase hover:underline dark:text-violet-400 h-16" >{tenPhim}</NavLink>
