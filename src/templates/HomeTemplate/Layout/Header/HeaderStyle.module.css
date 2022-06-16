@@ -12,7 +12,8 @@
     font-size: 20px;
 }
 .nav-header:hover{
-    color: #fe019a;
-    border-bottom: #fe019a 2px solid;
+    color: #00abff;
+    text-shadow:  0px 0px 11px #00abff;
+    border-bottom: #00abff 2px solid;
 }
 

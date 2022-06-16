@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { SET_RAP_PHIM } from '../../../redux/actions/types/QuanLyRapTypes';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
-import { history } from '../../../App';
+import './style.css';
+import '../../../GlobalStyle/globalStyle.css'
 const { TabPane } = Tabs;
 function HomeMenu(props) {
     //console.log("HomeMenuprops", props)
@@ -12,15 +13,17 @@ function HomeMenu(props) {
     const renderTheaterTabPane = () => {
         return hethongRapChieu.map((item, index) => {
             return <TabPane tab={<img className='rounded-full' width="50" src={item.logo} alt={item.tenHeThongRap} />} key={index}>
-                <Tabs tabPosition="left">
+                <Tabs  tabPosition="left">
                     {item.lstCumRap?.map((cumRap, index) => {
-                        return <TabPane key={index} tab={
-                            <div style={{ width: '300px' }} className="flex items-center">
-                                <img className='rounded-full cursor-pointer' width="50" src={`https://picsum.photos/id/${index}/200/200`} alt={item.tenHeThongRap} onClick={()=>{
-                                   
+                        let randIndex = Math.floor(Math.random()* 40);
+                        return <TabPane className='my-tap'  key={index}  tab={
+                            <div style={{ width: '300px' }} className="cum_rap-tap flex items-center">
+                                
+                                <img className='rounded-full cursor-pointer' width="50" src={`https://picsum.photos/id/${randIndex}/200/200`} alt={item.tenHeThongRap} onClick={()=>{
+                                    
                                 }} />
                                 <br />
-                                <div className='text-left ml-2'>
+                                <div className='cum_rap_name text-left ml-2 w-full'>
                                     {cumRap.tenCumRap}
                                 </div>
 
@@ -33,15 +36,15 @@ function HomeMenu(props) {
                                         <div className='flex' >
                                             <img style={{height:'fit-content',
                                         width:100}} src={film.hinhAnh} alt={film.tenPhim} />
-                                            <div className='film_des text-green-800 ml-2 '>
-                                                <h2 className='text-2xl '>
+                                            <div className='film_des text-white ml-2 '>
+                                                <h2 className='text-2xl text-white '>
                                                     {film.tenPhim}
                                                 </h2>
                                                 <p>{cumRap.diaChi}</p>
                                                 {/* Load lich chieu */}
                                                 <div className='grid grid-cols-6 gap-6'>
                                                     {film.lstLichChieuTheoPhim?.slice(0,12).map((time, index) => {
-                                                        return <NavLink className='px-2 py-2 font-semibold rounded bg-gray-800 text-white ' key={index} to={`checkout/${time.maLichChieu}`}>
+                                                        return <NavLink className='custom-btn-hover px-2 py-2 font-semibold rounded border-2 text-white ' key={index} to={`checkout/${time.maLichChieu}`}>
                                                             {moment(time.ngayChieuGioChieu).format("hh:mm A")}
                                                         </NavLink>
                                                     })}

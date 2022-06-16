@@ -1,0 +1,31 @@
+/* .ant-tabs-tab-active .cum_rap-tap .cum_rap_name{
+    color: #fe019a;
+    font-size: large;
+} */
+/* .ant-tabs-tab-active .cum_rap-tap .cum_rap_name:hover{
+    color: #00abff;
+    font-size: large;
+} */
+.ant-tabs-tab.ant-tabs-tab-active{
+    
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn .cum_rap-tap{
+    color: #fe019a;
+    font-size: large;
+   
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn .cum_rap-tap .cum_rap_name{
+    white-space: break-spaces;
+}
+.ant-tabs-tab{
+    color: white;
+}
+.ant-tabs-tab:hover{
+    color: #00abff;
+    font-size: large;
+    white-space: break-spaces;
+}
+.home__menu .ant-tabs-ink-bar {
+    background-color: #fe019a;
+    box-shadow: 0px 0px 15px 1.5px #fe019a ;
+}
