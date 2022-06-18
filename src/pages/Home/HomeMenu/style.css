@@ -9,12 +9,12 @@
 .ant-tabs-tab.ant-tabs-tab-active{
     
 }
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn .cum_rap-tap{
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn .cum_rap_list{
     color: #fe019a;
     font-size: large;
    
 }
-.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn .cum_rap-tap .cum_rap_name{
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn .cum_rap_list .cum_rap_name{
     white-space: break-spaces;
 }
 .ant-tabs-tab{
@@ -25,7 +25,38 @@
     font-size: large;
     white-space: break-spaces;
 }
+.home__menu{
+    height: 700px;
+}
 .home__menu .ant-tabs-ink-bar {
     background-color: #fe019a;
     box-shadow: 0px 0px 15px 1.5px #fe019a ;
+}
+
+.my-tap{
+    height: 700px;
+}
+
+.film__list{
+    height: 700px;
+    overflow: auto;
+    padding-bottom: 10vh;
+}
+.film__list::-webkit-scrollbar{
+    width: 4px;
+    box-shadow: 0px 0px 15px 1.5px #fe019a ;
+}
+.film__list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+.film__list::-webkit-scrollbar-thumb {
+    background-color: #fe019a;
+  }
+.loadmore{
+    content: "";
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    width: 0;
+    margin: auto;
+    border-top: 20px solid #fe019a;
 }

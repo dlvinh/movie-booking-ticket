@@ -27,7 +27,7 @@ export default function Home() {
         <HomeCard></HomeCard>
       </div>
       <div className='home__menu'>
-        <HomeMenu hethongRapChieu={heThongRapChieu}></HomeMenu>
+        <HomeMenu hethongRapChieu={heThongRapChieu} ></HomeMenu>
       </div>
 
     </div>
