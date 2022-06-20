@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { SET_RAP_PHIM } from '../../../redux/actions/types/QuanLyRapTypes';
 import { NavLink } from 'react-router-dom';
 import moment from 'moment';
-import './style.css';
+
 import '../../../GlobalStyle/globalStyle.css'
 import MovieTimeTable from './MovieTimeTable';
 const { TabPane } = Tabs;

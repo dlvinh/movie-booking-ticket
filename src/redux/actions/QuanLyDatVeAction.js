@@ -1,6 +1,7 @@
 import { notification } from "antd";
 import { quanLyDatVe } from "../../services/QuanlyDatVe"
 import { openNotificationWithIcon } from "../../util/Notification/Notification";
+import { HIDE_ANIMATION_ACTION, SHOW_ANIMATION_ACTION } from "./AnimationActions";
 import { CHUYEN_TAB_ACTION } from "./ChuyenTabAction";
 import { HIDE_LOADING_ACTION, SHOW_LOADING_ACTION } from "./LoadingAction,";
 import { HIDE_LOADING, SHOW_LOADING } from "./types/LoadingType";
@@ -9,15 +10,17 @@ import { DAT_VE_HOAN_TAT, SET_PHONG_VE } from "./types/QuanLyDatVe";
 export const layDanhSachPhongVeAction = (maLichChieu)=>{
     return async (dispacth)=>{
         dispacth(SHOW_LOADING_ACTION())
+        dispacth(HIDE_ANIMATION_ACTION())
         try{
             let {data, status} = await quanLyDatVe.layDanhSachPhongVe(maLichChieu);
             console.log("Danh Sach Phong ve",data.content);
             if (status === 200){
-                dispacth({
+                await dispacth({
                     type: SET_PHONG_VE,
                     data: data.content
                 })
-                dispacth(HIDE_LOADING_ACTION())
+                await dispacth(HIDE_LOADING_ACTION())
+                await dispacth(SHOW_ANIMATION_ACTION())
             }
         }catch(err){
             console.log("err",err);

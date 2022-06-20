@@ -51,7 +51,7 @@ export default function UserHeader(props) {
         <Dropdown overlay={menu} trigger={['click']}>
             <div className="items-center flex cursor-pointer mr-16">
                 <img src="https://picsum.photos/50" className='rounded-full' />
-                <p className={`m-0 ml-2 ${style['user_text']}`}>Hello, {thongTinTaiKhoan.hoTen}</p>
+                <p className={` text-white m-0 ml-2 ${style['user_text']}`}>Hello, {thongTinTaiKhoan.hoTen}</p>
             </div>
         </Dropdown>
     )

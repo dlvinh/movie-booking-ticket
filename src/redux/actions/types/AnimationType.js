@@ -1,0 +1,2 @@
+export const SHOW_ANIMATION ="SHOW_ANIMATION";
+export const HIDE_ANIMATION = "HIDE_ANIMATION";

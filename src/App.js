@@ -27,7 +27,7 @@ import AddSchedule from './pages/Admin/Films/AddSchedule';
 import UserManagement from './pages/Admin/UserManagement/UserManagement';
 import EditUser from './pages/Admin/UserManagement/EditUser';
 import Profile from './pages/Admin/UserManagement/Profile';
-
+import './css/styles.css'
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
 // DIEU HUONG CAC THANH CONG CU ROUTE TOI CAC PAGE KHAC
