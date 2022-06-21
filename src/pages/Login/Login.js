@@ -32,7 +32,7 @@ export function Login(props) {
   } = props;
 
   return (
-    <div className="lg:w-1/2 xl:max-w-screen-sm">
+    <div className="lg:w-1/2 xl:max-w-screen-sm bg-white text-black">
       <div className="py-12 bg-indigo-100 lg:bg-white flex justify-center lg:justify-start lg:px-12">
         <div className="cursor-pointer flex items-center">
           <div>

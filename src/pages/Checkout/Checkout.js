@@ -105,6 +105,29 @@ export default function Checkout(props) {
           <div className="screen_container text-white" style={{ width: "80%", margin: "1rem auto 1rem auto" }} >
             <div id={checkoutStyle.shadowScreen}></div>
           </div>
+          {transitionStyle((style,item)=> {
+            if (item){
+              return <animated.div style={style}>
+  <div className="seat_legent flex justify-center">
+              <div className='text-center px-3'>
+                  <div  className={`${checkoutStyle.ghe} ${checkoutStyle.gheVip}`}></div>
+                  <p>VIP</p>
+              </div>
+             
+              <div className='text-center px-3'>
+                  <div className={`${checkoutStyle.ghe} ${checkoutStyle.gheDaDat}`}></div>
+                  <p>Occupied</p>
+              </div>
+              <div className='text-center px-3'>
+              <div className={`${checkoutStyle.ghe} ${checkoutStyle.gheDangDat}`}></div>
+              <p>Current</p>
+              </div>
+          </div>
+              </animated.div>
+            }
+            return ""
+          })}
+        
           {/* Render Seats */}
           {renderSeats()}
           {/* <animated.div  className='seat_container text-center' style={show? transitionStyle: {}}> {renderSeats()} </animated.div> */}
@@ -115,8 +138,9 @@ export default function Checkout(props) {
         </div>
         {/* Ticket container */}
         <div className='col-span-3 text-white'>
-        {ticketTransitionStyle((style,item)=> item ?  <animated.div className="ticket-area"  style={style}> 
-          
+        {ticketTransitionStyle((style,item)=> item ?  
+        
+        <animated.div className="ticket-area"  style={style}>   
         <h3 className='text-center text-green-400 text-2xl'>0d</h3>
           <hr></hr>
           <h3 className='text-xl text-white text-center'>{thongTinPhim.tenPhim}</h3>
@@ -124,13 +148,38 @@ export default function Checkout(props) {
           <p className='px-2'>Date: {moment(thongTinPhim.ngayChieu).format("LL")} - {thongTinPhim.gioChieu} - {thongTinPhim.tenRap}</p>
           <hr />
           <div className='flex justify-between px-8'>
-            <p className='text-red-400'>Seat</p>
-            {_.sortBy(danhSachGheDangDat, ['stt']).map((ghe, index) => {
-              return <span key={index} className='text-green-400'>{ghe.stt} </span>
+            <table className='table-auto w-full text-left'>
+                <thead>
+                  <tr>
+                    <th>Number</th>
+                    <th>Seat</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {_.sortBy(danhSachGheDangDat, ['stt']).map((ghe, index) => {
+              return <tr>
+                   <td>{index +1}</td>
+                   <td>{ghe.stt}</td>
+                   <td>{ghe.giaVe}</td>
+                  </tr>
             })}
-            <p className='text-green-400'>{danhSachGheDangDat.reduce((tongtien, ghe, index) => {
+               
+                </tbody>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Total:</th>
+                    <th>{danhSachGheDangDat.reduce((tongtien, ghe, index) => {
               return tongtien += ghe.giaVe
-            }, 0)}</p>
+            }, 0)}</th>
+                 </tr>
+                </thead>
+            </table>
+       
+            {/* <p className='text-green-400'>{danhSachGheDangDat.reduce((tongtien, ghe, index) => {
+              return tongtien += ghe.giaVe
+            }, 0)}</p> */}
 
           </div>
           <hr />
@@ -154,7 +203,7 @@ export default function Checkout(props) {
               Buy Ticket
             </button>
             <button onClick={() => {
-              history.push("/home")
+              history.goBack();
             }} className='bg-red-500 text-white w-full text-center py-3 font-bold cursor-pointer'>
               Cancel
             </button>
