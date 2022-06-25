@@ -7,9 +7,10 @@ import { datVeAction, layDanhSachPhongVeAction } from '../../redux/actions/QuanL
 import { TOKEN, USER_LOGIN } from '../../util/setting.js/config'
 import checkoutStyle from "../Checkout/CheckoutStyle.module.css"
 import {
+  ExclamationCircleOutlined,
   UserOutlined
 } from '@ant-design/icons';
-import { DAT_VE } from '../../redux/actions/types/QuanLyDatVe'
+import { DAT_VE, HUY_VE } from '../../redux/actions/types/QuanLyDatVe'
 import _ from 'lodash';
 import { Dropdown, Popconfirm, Tabs, Menu, Button } from 'antd';
 import { ThongTinDatVe } from '../../_core/models/ThongTinDatVe'
@@ -21,36 +22,42 @@ import MovieDetailBanner from '../../components/MovieDetail/MovieDetailBanner'
 import { useSpring, animated, useTransition } from 'react-spring';
 import { SHOW_LOADING_ACTION } from '../../redux/actions/LoadingAction,'
 import { SHOW_ANIMATION_ACTION } from '../../redux/actions/AnimationActions'
-
-
+import Confirmation from './Confirmation'
+//import Modal from 'antd/lib/modal/Modal'
+import { Modal } from 'antd'
+import { HIDE_CONFIMRATION_ACTION, SHOW_CONFIRMATION_ACTION } from '../../redux/actions/ModalAction'
+const { confirm } = Modal;
 export default function Checkout(props) {
+ 
   let maLichChieu = props.propsRoute.match.params.maLichChieu;
   const { userLogin } = useSelector(state => state.QuanlyNguoiDungState);
-  const { chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat } = useSelector(state => state.QuanLyDatVeState);
+  const { chiTietPhongVe, danhSachGheDangDat, danhSachGheKhachDat,isModalVisible } = useSelector(state => state.QuanLyDatVeState);
   const { thongTinPhim, danhSachGhe } = chiTietPhongVe;
-
-  // USE SPRING ANIMATION
+  // ============== USE SPRING ANIMATION =================
   const show = useSelector(state => state.AnimationState);
- const transitionStyle = useTransition(show,{
-  from: {
-    opacity: 0,
-    transform: "translateX(-100%)"
-  },
-  enter: {
-    opacity: 1,
-    transform: "translateX(0%)"
-  },
- })
- const ticketTransitionStyle = useTransition(show,{
-  from: {
-    opacity: 0,
-    transform: "translateX(100%)"
-  },
-  enter: {
-    opacity: 1,
-    transform: "translateX(0%)"
-  },
- })
+  const transitionStyle = useTransition(show, {
+    from: {
+      opacity: 0,
+      transform: "translateX(-100%)"
+    },
+    enter: {
+      opacity: 1,
+      transform: "translateX(0%)"
+    },
+  })
+  const ticketTransitionStyle = useTransition(show, {
+    from: {
+      opacity: 0,
+      transform: "translateX(100%)"
+    },
+    enter: {
+      opacity: 1,
+      transform: "translateX(0%)"
+    },
+  })
+
+
+  // ============== DISPACT AND EFFECT =============
   const dispacth = useDispatch();
   useEffect(() => {
     // dispacth mot funciton len redux thunk
@@ -62,8 +69,8 @@ export default function Checkout(props) {
     return <Redirect to="/login"></Redirect> // dung redirect moi co the dung history.goBack()
   };
 
-  const renderSeats =   () => {
-  let danhSach =   danhSachGhe.map((seat, index) => {
+  const renderSeats = () => {
+    let danhSach = danhSachGhe.map((seat, index) => {
       let gheStyle = "";
       let gheDaDatStyle = "";
       let gheDangDatStyle = "";
@@ -94,123 +101,153 @@ export default function Checkout(props) {
         {(index + 1) % 16 == 0 ? <br /> : ""}
       </React.Fragment>
     })
-    return <div className='seat_container text-center'> {transitionStyle((style,item)=> item ?  <animated.div  style={style}> {danhSach} </animated.div> :"" )} </div>
+    return <div className='seat_container text-center'> {transitionStyle((style, item) => item ? <animated.div style={style}> {danhSach} </animated.div> : "")} </div>
   }
 
+
+  // SHOW MODAL CONFIRMATION 
+  // const showModalConfirmationHandler =()=>{
+  //   confirm({
+  //     title: 'Do you Want to delete these items?',
+  //     icon: <ExclamationCircleOutlined />,
+  //     content:  <Confirmation thongTinPhim={thongTinPhim} danhSachGheDangDat={danhSachGheDangDat}></Confirmation>,
+  
+  //     onOk() {
+  //       console.log('OK');
+  //     },
+  
+  //     onCancel() {
+  //       console.log('Cancel');
+  //     },
+  //   });
+  // }
   return (
     <div className={`min-h-screen text-white w-11/12 m-auto`}>
+      {/* CHECKOUT */}
       <div className='grid grid-cols-12 overflow-hidden'>
         {/* Screen container */}
         <div className='col-span-9'>
           <div className="screen_container text-white" style={{ width: "80%", margin: "1rem auto 1rem auto" }} >
             <div id={checkoutStyle.shadowScreen}></div>
           </div>
-          {transitionStyle((style,item)=> {
-            if (item){
+          {transitionStyle((style, item) => {
+            if (item) {
               return <animated.div style={style}>
-  <div className="seat_legent flex justify-center">
-              <div className='text-center px-3'>
-                  <div  className={`${checkoutStyle.ghe} ${checkoutStyle.gheVip}`}></div>
-                  <p>VIP</p>
-              </div>
-             
-              <div className='text-center px-3'>
-                  <div className={`${checkoutStyle.ghe} ${checkoutStyle.gheDaDat}`}></div>
-                  <p>Occupied</p>
-              </div>
-              <div className='text-center px-3'>
-              <div className={`${checkoutStyle.ghe} ${checkoutStyle.gheDangDat}`}></div>
-              <p>Current</p>
-              </div>
-          </div>
+                <div className="seat_legent flex justify-center">
+                  <div className='text-center px-3'>
+                    <div className={`${checkoutStyle.ghe} ${checkoutStyle.gheVip}`}></div>
+                    <p>VIP</p>
+                  </div>
+
+                  <div className='text-center px-3'>
+                    <div className={`${checkoutStyle.ghe} ${checkoutStyle.gheDaDat}`}></div>
+                    <p>Occupied</p>
+                  </div>
+                  <div className='text-center px-3'>
+                    <div className={`${checkoutStyle.ghe} ${checkoutStyle.gheDangDat}`}></div>
+                    <p>Current</p>
+                  </div>
+                </div>
               </animated.div>
             }
             return ""
           })}
-        
           {/* Render Seats */}
           {renderSeats()}
-          {/* <animated.div  className='seat_container text-center' style={show? transitionStyle: {}}> {renderSeats()} </animated.div> */}
-          {/* <div className='seat_container text-center'>
-            
-            {/* {renderSeats()} 
-           </div> */} 
         </div>
         {/* Ticket container */}
         <div className='col-span-3 text-white'>
-        {ticketTransitionStyle((style,item)=> item ?  
-        
-        <animated.div className="ticket-area"  style={style}>   
-        <h3 className='text-center text-green-400 text-2xl'>0d</h3>
-          <hr></hr>
-          <h3 className='text-xl text-white text-center'>{thongTinPhim.tenPhim}</h3>
-          <p className='px-2'>Location: {thongTinPhim.tenCumRap}</p>
-          <p className='px-2'>Date: {moment(thongTinPhim.ngayChieu).format("LL")} - {thongTinPhim.gioChieu} - {thongTinPhim.tenRap}</p>
-          <hr />
-          <div className='flex justify-between px-8'>
-            <table className='table-auto w-full text-left'>
-                <thead>
-                  <tr>
-                    <th>Number</th>
-                    <th>Seat</th>
-                    <th>Price</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {_.sortBy(danhSachGheDangDat, ['stt']).map((ghe, index) => {
-              return <tr>
-                   <td>{index +1}</td>
-                   <td>{ghe.stt}</td>
-                   <td>{ghe.giaVe}</td>
-                  </tr>
-            })}
-               
-                </tbody>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Total:</th>
-                    <th>{danhSachGheDangDat.reduce((tongtien, ghe, index) => {
-              return tongtien += ghe.giaVe
-            }, 0)}</th>
-                 </tr>
-                </thead>
-            </table>
-       
-            {/* <p className='text-green-400'>{danhSachGheDangDat.reduce((tongtien, ghe, index) => {
+          {ticketTransitionStyle((style, item) => item ?
+            <animated.div className="ticket-area" style={style}>
+              <h3 className='text-center text-green-400 text-2xl'>0d</h3>
+              <hr></hr>
+              <h3 className='text-xl text-white text-center'>{thongTinPhim.tenPhim}</h3>
+              <p className='px-2'>Location: {thongTinPhim.tenCumRap}</p>
+              <p className='px-2'>Date: {moment(thongTinPhim.ngayChieu).format("LL")} - {thongTinPhim.gioChieu} - {thongTinPhim.tenRap}</p>
+              <hr />
+              <div className='flex justify-between px-8'>
+                <table className='table-auto w-full text-left'>
+                  <thead>
+                    <tr>
+                      <th>Number</th>
+                      <th>Seat</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {_.sortBy(danhSachGheDangDat, ['stt']).map((ghe, index) => {
+                      return <tr>
+                        <td>{index + 1}</td>
+                        <td>{ghe.stt}</td>
+                        <td>{ghe.giaVe}</td>
+                      </tr>
+                    })}
+                  </tbody>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>Total:</th>
+                      <th>{danhSachGheDangDat.reduce((tongtien, ghe, index) => {
+                        return tongtien += ghe.giaVe
+                      }, 0)}</th>
+                    </tr>
+                  </thead>
+                </table>
+
+                {/* <p className='text-green-400'>{danhSachGheDangDat.reduce((tongtien, ghe, index) => {
               return tongtien += ghe.giaVe
             }, 0)}</p> */}
 
-          </div>
-          <hr />
-          <div className='my-5 px-2'>
-            <i>Email</i> <br /> {userLogin.email}
-          </div>
-          <div className='my-5 px-2'>
-            <i>Phone</i> <br />
-            {userLogin.soDT === null ? "Not available" : userLogin.soDt}
-          </div>
-          <hr />
-          <div className='mb-0 flex flex-col items-center'>
-        
-            <button onClick={() => {
-              const thongTinDatVe = new ThongTinDatVe();
-              thongTinDatVe.maLichChieu = props.propsRoute.match.params.maLichChieu;
-              thongTinDatVe.danhSachVe = danhSachGheDangDat;
-              let action = datVeAction(thongTinDatVe);
-              dispacth(action)
-            }} className='bg-green-500 text-white w-full text-center py-3 font-bold cursor-pointer mb-4'>
-              Buy Ticket
-            </button>
-            <button onClick={() => {
-              history.goBack();
-            }} className='bg-red-500 text-white w-full text-center py-3 font-bold cursor-pointer'>
-              Cancel
-            </button>
-          </div>
-          </animated.div> :"" )}
-        
+              </div>
+              <hr />
+              <div className='my-5 px-2'>
+                <i>Email</i> <br /> {userLogin.email}
+              </div>
+              <div className='my-5 px-2'>
+                <i>Phone</i> <br />
+                {userLogin.soDT === null ? "Not available" : userLogin.soDt}
+              </div>
+              <hr />
+              <div className='mb-0 flex flex-col items-center'>
+
+                <button onClick={() => {
+                  // const thongTinDatVe = new ThongTinDatVe();
+                  // thongTinDatVe.maLichChieu = props.propsRoute.match.params.maLichChieu;
+                  // thongTinDatVe.danhSachVe = danhSachGheDangDat;
+                  // let action = datVeAction(thongTinDatVe);
+                  // dispacth(action)
+                 dispacth(SHOW_CONFIRMATION_ACTION());
+                }} className='bg-green-500 text-white w-full text-center py-3 font-bold cursor-pointer mb-4'>
+                  Buy Ticket
+                </button>
+                <button onClick={() => {
+                  dispacth({
+                    type: HUY_VE
+                  })
+                  history.goBack();
+
+                }} className='bg-red-500 text-white w-full text-center py-3 font-bold cursor-pointer'>
+                  Cancel
+                </button>
+              </div>
+            </animated.div> : "")}
+              
         </div>
+      </div>
+
+      {/* CONFIRMATION MODAL */}
+      <div className='confirmation-modal-container'>
+      <Modal title="Confirmation" visible={isModalVisible} okText="Confirm" onOk={()=>{
+                  const thongTinDatVe = new ThongTinDatVe();
+                  thongTinDatVe.maLichChieu = props.propsRoute.match.params.maLichChieu;
+                  thongTinDatVe.danhSachVe = danhSachGheDangDat;
+                  let action = datVeAction(thongTinDatVe);
+                  dispacth(action)
+      }}  onCancel={()=>{
+         dispacth(HIDE_CONFIMRATION_ACTION());
+      }}      >
+         <Confirmation thongTinPhim={thongTinPhim} danhSachGheDangDat={danhSachGheDangDat}></Confirmation>
+      </Modal>
       </div>
     </div>
   )
@@ -274,7 +311,7 @@ const { TabPane } = Tabs;
 
 //   return <>
 
-    
+
 //     <Tabs size='large' tabBarExtraContent={operations} defaultActiveKey="1" activeKey={tabActive.toString()} type="card" onTabClick={(e) => {
 //       dispacth(CHUYEN_TAB_ACTION(e))
 //     }}>
@@ -292,12 +329,12 @@ const { TabPane } = Tabs;
 
 // function KetQuaDatVe(props) {
 //   const { thongTinTaiKhoan } = useSelector(state => state.QuanlyNguoiDungState);
-//   const { tabActive } = useSelector(state => state.QuanLyDatVeState);
+//   // const { tabActive } = useSelector(state => state.QuanLyDatVeState);
 //   const dispatch = useDispatch();
 //   useEffect(() => {
 //     let action = layThongTinTaiKhoanAction();
 //     dispatch(action);
-//   }, [tabActive])
+//   }, [])
 //   console.log({ thongTinTaiKhoan });
 //   const renderHistory = () => {
 //     return thongTinTaiKhoan?.thongTinDatVe?.map((info, index) => {
@@ -332,7 +369,7 @@ const { TabPane } = Tabs;
 //         <div className="container px-5 mx-auto">
 //           <div className="flex flex-col text-center w-full mb-10">
 //             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Thank you {thongTinTaiKhoan.hoTen}</h1>
-//             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">Welcome to MyMovieTheater - Enjoy your movie in your own style</p>
+//             <p className="lg:w-2/3 mx-auto leading-relaxed text-base">-Welcome to MyMovieTheater- <br>You have successfully bought ticket for movie</br></p>
 //           </div>
 //           <div>
 //             <Button onClick={() => {

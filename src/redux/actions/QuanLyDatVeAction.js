@@ -4,6 +4,7 @@ import { openNotificationWithIcon } from "../../util/Notification/Notification";
 import { HIDE_ANIMATION_ACTION, SHOW_ANIMATION_ACTION } from "./AnimationActions";
 import { CHUYEN_TAB_ACTION } from "./ChuyenTabAction";
 import { HIDE_LOADING_ACTION, SHOW_LOADING_ACTION } from "./LoadingAction,";
+import { HIDE_CONFIMRATION_ACTION } from "./ModalAction";
 import { HIDE_LOADING, SHOW_LOADING } from "./types/LoadingType";
 import { DAT_VE_HOAN_TAT, SET_PHONG_VE } from "./types/QuanLyDatVe";
 
@@ -36,17 +37,18 @@ export const datVeAction = (thongTinDatVe)=>{
         try{
             let {data,status} = await quanLyDatVe.datVe(thongTinDatVe);
             if (status === 200){
-                openNotificationWithIcon("success","Buy ticket",data.content.message,"top");
+                openNotificationWithIcon("success","Purchase has been processed",data.content.message,"top");
                 // SET TO chitietphongve reducer
                 await dispatch(layDanhSachPhongVeAction(thongTinDatVe.maLichChieu)) // su dung await de doi cho viet lay dispacth hoan tat thi  HIDELOADING moi duoc executed
                 await dispatch({type:DAT_VE_HOAN_TAT});
-                await dispatch(CHUYEN_TAB_ACTION(2));
-                dispatch(HIDE_LOADING_ACTION())
-
+                await dispatch(HIDE_LOADING_ACTION());
+                await dispatch (HIDE_CONFIMRATION_ACTION());
             }
         
         }catch(err){
             openNotificationWithIcon("error","Failure", err.response.data.content.message,"top");
         }   
+        
+        await dispatch(HIDE_LOADING_ACTION());
     }
 }

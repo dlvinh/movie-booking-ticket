@@ -2,3 +2,6 @@ export const SET_PHONG_VE = "SET_PHONG_VE";
 export const DAT_VE = "DAT_VE";
 export const DAT_VE_HOAN_TAT = "DAT_VE_HOAN_TAT";
 export const CHUYEN_TAB = "CHUYEN_TAB";
+export const HUY_VE = "HUY_VE";
+export const SHOW_CONFIRMATION_MODAL = "SHOW_CONFIRMATION_MODAL";
+export const HIDE_CONFIRMATION_MODAL = "HIDE_CONFIMRATION_MODAL";
