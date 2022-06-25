@@ -104,23 +104,6 @@ export default function Checkout(props) {
     return <div className='seat_container text-center'> {transitionStyle((style, item) => item ? <animated.div style={style}> {danhSach} </animated.div> : "")} </div>
   }
 
-
-  // SHOW MODAL CONFIRMATION 
-  // const showModalConfirmationHandler =()=>{
-  //   confirm({
-  //     title: 'Do you Want to delete these items?',
-  //     icon: <ExclamationCircleOutlined />,
-  //     content:  <Confirmation thongTinPhim={thongTinPhim} danhSachGheDangDat={danhSachGheDangDat}></Confirmation>,
-  
-  //     onOk() {
-  //       console.log('OK');
-  //     },
-  
-  //     onCancel() {
-  //       console.log('Cancel');
-  //     },
-  //   });
-  // }
   return (
     <div className={`min-h-screen text-white w-11/12 m-auto`}>
       {/* CHECKOUT */}

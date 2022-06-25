@@ -12,19 +12,19 @@ export function MovieTimeTable(props) {
         showLoadMore: true,
         showLoading:false
     });
-    console.log({ danhSachPhimDefault });
-    console.log({ state });
+    // console.log({ danhSachPhimDefault });
+    // console.log({ state });
     const prevState = useRef();
     const ref = useRef();
     useEffect(() => {
-        console.log("height",ref.current.scrollHeight);
+        // console.log("height",ref.current.scrollHeight);
         prevState.current = state.danhSachPhim;
     }, [state.danhSachPhim]);
 
     return (
       <>
        <div className='film__list' ref={ref} onTouchMove={()=>{
-        console.log("onchange")
+       // console.log("onchange")
             if (ref.current.scrollHeight == ref.current.clientHeight){
                 setState({
                     ...state,
@@ -62,10 +62,7 @@ export function MovieTimeTable(props) {
                         }catch(error){
                             openNotificationWithIcon("error","Error","No more Movie","top");
                         }
-                      
                     },1000)
-                  
-
                 }
             }
         }}>
@@ -73,10 +70,10 @@ export function MovieTimeTable(props) {
             {
                 state.danhSachPhim?.map((film, index) => {
                     return <React.Fragment key={index}>
-                        <div className=' flex my-5' >
+                        <div className=' flex justify-center my-5 px-2' >
                             <div className='flex' >
                                 <img style={{
-                                    height: 'fit-content',
+                                    objectFit:"contain",
                                     width: 100
                                 }} src={film.hinhAnh} alt={film.tenPhim} />
                                 <div className='film_des text-white ml-2 '>
@@ -85,7 +82,7 @@ export function MovieTimeTable(props) {
                                     </h2>
                                     <p>{props.diaChi}</p>
                                     {/* Load lich chieu */}
-                                    <div className='grid grid-cols-6 gap-6'>
+                                    <div className='grid sm:grid-cols-3 sm:gap-3 md:grid-cols-4 md:gap-4 2xl:grid-cols-6 2xl:gap-6'>
                                         {film.lstLichChieuTheoPhim?.slice(0, 12).map((time, index) => {
                                             return <NavLink className='custom-btn-hover px-2 py-2 font-semibold rounded border-2 text-white ' key={index} to={`checkout/${time.maLichChieu}`}>
                                                 {moment(time.ngayChieuGioChieu).format("hh:mm A")}

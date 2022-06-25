@@ -1,22 +1,41 @@
-import React, { useEffect, useState } from 'react'
-import { Tabs, Radio, Space } from 'antd';
-import { useDispatch } from 'react-redux';
-import { SET_RAP_PHIM } from '../../../redux/actions/types/QuanLyRapTypes';
-import { NavLink } from 'react-router-dom';
-import moment from 'moment';
+import React, { useEffect,useRef } from 'react'
+import { Tabs, } from 'antd';
+
 
 import '../../../GlobalStyle/globalStyle.css'
 import MovieTimeTable from './MovieTimeTable';
+import { useState } from 'react';
 const { TabPane } = Tabs;
+
 function HomeMenu(props) {
     //console.log("HomeMenuprops", props)
     const { hethongRapChieu } = props;
-    
+    const [widthState,setWidthState] = useState();
+    const ref = useRef();
+
+    useEffect(()=>{
+        if (ref.current.clientWidth < 800){
+            setWidthState("md");
+        }
+        const handleResize = ()=>{
+            // ref.current.offsetWidth = window.innerWidth;
+            console.log(ref.current.clientWidth)
+            if (ref.current.clientWidth < 800){
+                setWidthState("md");
+            }else{
+                setWidthState("xl")
+            }
+        }
+        window.addEventListener("resize",handleResize)
+        return ()=>{
+            window.removeEventListener("resize",handleResize)
+        }
+    },[ref.current])
     const renderTheaterTabPane = () => {
         console.log({hethongRapChieu});
         return hethongRapChieu.map((item, index) => {
             return <TabPane tab={<img className='rounded-full' width="50" src={item.logo} alt={item.tenHeThongRap} />} key={index}>
-                <Tabs className='my-tap'  tabPosition="left">
+                <Tabs className='my-tap'  tabPosition={widthState == "md" ? "top":"left"}>
                     {item.lstCumRap?.map((cumRap, index) => {
                         let randIndex = Math.floor(Math.random()* 40);
                         return <TabPane className='my-tap'  key={index}  tab={
@@ -34,35 +53,6 @@ function HomeMenu(props) {
                         } >
                             {/* Load film */}
                             <MovieTimeTable danhSachPhim={cumRap.danhSachPhim} tenCumRap={cumRap.tenCumRap} diaChi={cumRap.diaChi}></MovieTimeTable>
-                            {/* {cumRap.danhSachPhim?.slice(0,10).map((film, index) => {
-                                return <React.Fragment key={index}>
-                                    <div className=' flex my-5' >
-                                        <div className='flex' >
-                                            <img style={{height:'fit-content',
-                                        width:100}} src={film.hinhAnh} alt={film.tenPhim} />
-                                            <div className='film_des text-white ml-2 '>
-                                                <h2 className='text-2xl text-white '>
-                                                    {film.tenPhim}
-                                                </h2>
-                                                <p>{cumRap.diaChi}</p>
-                                                {/* Load lich chieu 
-                                                <div className='grid grid-cols-6 gap-6'>
-                                                    {film.lstLichChieuTheoPhim?.slice(0,12).map((time, index) => {
-                                                        return <NavLink className='custom-btn-hover px-2 py-2 font-semibold rounded border-2 text-white ' key={index} to={`checkout/${time.maLichChieu}`}>
-                                                            {moment(time.ngayChieuGioChieu).format("hh:mm A")}
-                                                        </NavLink>
-                                                    })}
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <hr />
-                                </React.Fragment>
-
-                            })} */}
                         </TabPane>
                     })}
                 </Tabs>
@@ -71,11 +61,11 @@ function HomeMenu(props) {
         })
     }
     return (
-        <React.Fragment className="home__menu">
-            <Tabs className='main-tap' tabPosition="left">
+        <div className="home__menu"  ref= {ref}>
+            <Tabs className='main-tap' tabPosition={widthState == "md" ? "top":"left"} >
                 {renderTheaterTabPane()}
             </Tabs>
-        </React.Fragment>
+        </div>
     )
 }
 

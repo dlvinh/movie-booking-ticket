@@ -1,8 +1,5 @@
-.home__menu {
-  height: 700px;
-}
 .home__menu .my-tap {
-  height: 700px;
+  height: 100%;
 }
 .home__menu .ant-tabs-tab {
   color: white;
@@ -46,5 +43,3 @@
   margin: auto;
   border-top: 20px solid #fe019a;
 }
-
-/*# sourceMappingURL=styles.css.map */
