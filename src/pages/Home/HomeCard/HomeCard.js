@@ -25,8 +25,8 @@ export default function HomeCard(props) {
     const activeClass = style["active-button"];
     
 
-    return <React.Fragment >
-        <div className='mb-4'>
+    return <div className="container mx-auto px-11 my-3" >
+        <div className='btn-select-option mb-4'>
             <button className={`${style['button']} px-8 py-3 font-semibold rounded text-white border-2  mr-2 ${activeButton ? activeClass: ""}`} onClick={()=>{
                 setActiveButton(true)
                 dispacth({
@@ -41,8 +41,7 @@ export default function HomeCard(props) {
             }}>Comming Soon</button>
         </div>
         <MultipleRowSlick arrFilms={arrFilms}></MultipleRowSlick>
-        {/* {renderFilm()} */}
-    </React.Fragment>
+    </div>
 
 
 }

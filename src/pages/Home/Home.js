@@ -22,15 +22,10 @@ export default function Home() {
   return (
     <div>
        <CarouselLayout ></CarouselLayout>
-    <div className='container mx-auto px-40 py-10'>
-     
         <HomeCard></HomeCard>
-      
-     
         <HomeMenu hethongRapChieu={heThongRapChieu} ></HomeMenu>
     
 
-    </div>
     </div>
   )
 }

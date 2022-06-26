@@ -46,6 +46,29 @@ export default class MultipleRowSlick extends Component {
             nextArrow: <SampleNextArrow />,
             prevArrow: <SamplePrevArrow />,
             adaptiveHeight: false,
+            responsive:[
+                {
+                    breakpoint: 1529,
+                    settings: {
+                      slidesToShow: 3,
+                      slidesToScroll: 3,
+                    }
+                },
+                {
+                    breakpoint: 1280,
+                    settings: {
+                      slidesToShow: 2,
+                      slidesToScroll: 2,
+                    }
+                },
+                {
+                    breakpoint: 780,
+                    settings: {
+                      slidesToShow: 1,
+                      slidesToScroll: 1,
+                    }
+                }
+            ]
         };
         return (
             <div>

@@ -61,7 +61,7 @@ function HomeMenu(props) {
         })
     }
     return (
-        <div className="home__menu"  ref= {ref}>
+        <div className="home__menu container  mx-auto  lg:px-40 lg:py-10"  ref= {ref}>
             <Tabs className='main-tap' tabPosition={widthState == "md" ? "top":"left"} >
                 {renderTheaterTabPane()}
             </Tabs>
