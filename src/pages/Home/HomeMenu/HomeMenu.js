@@ -14,15 +14,18 @@ function HomeMenu(props) {
     const ref = useRef();
 
     useEffect(()=>{
-        if (ref.current.clientWidth < 800){
+        console.log(ref.current.clientWidth);
+        if (ref.current.clientWidth < 1200){
             setWidthState("md");
         }
         const handleResize = ()=>{
             // ref.current.offsetWidth = window.innerWidth;
-            console.log(ref.current.clientWidth)
-            if (ref.current.clientWidth < 800){
+           // console.log(ref.current.clientWidth)
+            if (ref.current.clientWidth < 1200){
+                console.log("md")
                 setWidthState("md");
             }else{
+                console.log("xl")
                 setWidthState("xl")
             }
         }
@@ -32,7 +35,6 @@ function HomeMenu(props) {
         }
     },[ref.current])
     const renderTheaterTabPane = () => {
-        console.log({hethongRapChieu});
         return hethongRapChieu.map((item, index) => {
             return <TabPane tab={<img className='rounded-full' width="50" src={item.logo} alt={item.tenHeThongRap} />} key={index}>
                 <Tabs className='my-tap'  tabPosition={widthState == "md" ? "top":"left"}>

@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { Carousel } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios'
-import { getCarouselAction } from '../../../../redux/actions/CarouselAction';
 import style from './CarouselStyle.module.css';
 import { layDanhSachPhimAction } from '../../../../redux/actions/QuanLyPhimActions';
 import _ from "lodash";
@@ -12,7 +10,6 @@ const contentStyle = {
   color: '#fff',
   lineHeight: "0",
   textAlign: "center",
-
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
   backgroundSize: "100%",
@@ -49,13 +46,6 @@ export default function CarouselLayout() {
   // console.log(bannersList);
 
   const renderBanner = () => {
-    // return bannersList.map((item, index) => {
-    //   return <div className='banner' key={index}>
-    //     <div style={{ ...contentStyle, backgroundImage: `url(${item.hinhAnh})` }} >
-    //       <img className='w-full h-full opacity-0' src={item.hinhAnh} alt='...' />
-    //     </div>
-    //   </div>
-    // })
     return bannersList.map((item, index) => {
       return <div key={index}>
         <div style={{ ...contentStyle, backgroundImage: `url(${item?.hinhAnh})` }}>
@@ -65,7 +55,6 @@ export default function CarouselLayout() {
               <MovieDetailBanner movieItem={item}></MovieDetailBanner>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -77,8 +66,5 @@ export default function CarouselLayout() {
     <Carousel >
       {renderBanner()}
     </Carousel>
-    // <React.Fragment>
-    //   {renderBanner()}
-    // </React.Fragment>
   )
 }

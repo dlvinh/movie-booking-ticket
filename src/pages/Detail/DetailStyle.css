@@ -892,3 +892,15 @@
     padding: 3rem;
     color: black
 }
+@media screen and (max-width:642px){
+  .film-avatar{
+    display: none;
+  }
+}
+
+@media screen and (max-width:800px) {
+    .detail_container{
+      margin: 5rem 5rem
+    }
+}
+

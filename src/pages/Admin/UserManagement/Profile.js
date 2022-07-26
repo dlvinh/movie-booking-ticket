@@ -161,48 +161,8 @@ export class Profile extends Component {
     render() {
       //  console.log("renderProps", this.props);
         return (
-
-            // <div className={`border-b border-gray-200 dark:border-gray-700 py-10`} style={{ backgroundColor: `rgb(228 190 148)`, height: 'auto', backgroudPosition: `center`, backgroundRepeat: 'no-repeat', backgroundSize: `cover` }}>
-            //     <div className={`${style['glassmorphism-style']} w-10/12 mx-auto`} >
-            //         <div className='mt-7'>
-            //             <img class="w-52 h-52 mx-auto p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://picsum.photos/500" alt="Bordered avatar" />
-            //             <div className=" border-b border-gray-200 ">
-            //                 <ul className="flex flex-wrap text-sm font-medium text-center pl-5 " id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
-            //                     <li className="mr-2" role="presentation">
-            //                         <button onClick={() => {
-            //                             this.setState({
-            //                                 ...this.state,
-            //                                 showProfileTab: true,
-            //                                 showBookingHistortyTab: false
-            //                             })
-            //                         }} className="inline-block text-2xl p-4 rounded-t-lg border-b-2 text-white hover:text-blue-600 dark:text-white dark:hover:text-black border-gray-800 dark:border-gray-800" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="true">Profile</button>
-            //                     </li>
-            //                     <li className="mr-2" role="presentation">
-            //                         <button onClick={() => {
-            //                             this.setState({
-            //                                 ...this.state,
-            //                                 showProfileTab: false,
-            //                                 showBookingHistortyTab: true,
-            //                             })
-            //                         }} className="inline-block p-4 text-2xl rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 dark:border-transparent text-gray-500 dark:text-gray-400 border-gray-100 dark:border-gray-700" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Booking History</button>
-            //                     </li>
-
-            //                 </ul>
-            //             </div>
-            //             <div id="myTabContent">
-            //                 {/* <div className="px-20 py-5 bg-gray-50 text-white rounded-lg" id="profile" role="tabpanel" aria-labelledby="profile-tab" style={{ backgroundColor: "#f8cb837a" }}>
-
-            //                 </div> */}
-            //                 {/* <div className="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-            //                     <p className="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong className="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
-            //                 </div> */}
-            //                 {this.state.showProfileTab && !this.state.showBookingHistortyTab ? this.renderProfileContent() : !this.state.showProfileTab && this.state.showBookingHistortyTab ? this.renderBookingHistoryContent() : ""}
-            //             </div>
-            //         </div>
-            //     </div>
-            // </div>
             <div className={`border-b border-gray-200 dark:border-gray-700 py-10`} style={{ backgroundColor: `rgb(228 190 148)`, height: 'auto', backgroudPosition: `center`, backgroundRepeat: 'no-repeat', backgroundSize: `cover` }}>
-               <div className={`${style['glassmorphism-style']} w-10/12 mx-auto`} >
+               <div className={`${style['glassmorphism-style']} w-10/12 mx-auto mt-20`} >
                <img class="w-52 h-52 mx-auto p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src="https://picsum.photos/500" alt="Bordered avatar" />
                <Tabs defaultActiveKey="1" size='large' style={{ marginBottom: 32 }}>
                     <TabPane tab="Profile" key="1">

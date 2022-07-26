@@ -14,6 +14,7 @@ export default function Detail(props) {
     const { propsRoute } = props;
     const { filmDetail } = useSelector(state => state.QuanLyPhimState);
     const { heThongRapChieu } = filmDetail;
+    console.log("Detial",filmDetail);
     const dispatch = useDispatch();
     const id = propsRoute.match.params.id;
     useEffect(() => {
@@ -37,7 +38,7 @@ export default function Detail(props) {
     const renderTheaterTabPane = () => {
         if (heThongRapChieu?.length === 0) {
             return <div>
-                NO data
+                Schedules are not avallable
             </div>
         }
         return heThongRapChieu?.map((item, index) => {
@@ -100,7 +101,7 @@ export default function Detail(props) {
             </div>
             {/* <MovieDetailBanner movieItem = {filmDetail} ></MovieDetailBanner> */}
         </div>
-        // return <MovieDetailBanner movieItem = {filmDetail} ></MovieDetailBanner>
+       
     }
     return (
         <div style={backGroundStyle}>
@@ -112,7 +113,8 @@ export default function Detail(props) {
                 style={{ height: "fit-content", backgroundColor: "#00091d85" }}
             >
                 {/* DEtial content */}
-                {renderMovieDetail()}
+                <MovieDetailBanner movieItem= {filmDetail}></MovieDetailBanner>
+                {/* {renderMovieDetail()} */}
                 <h2 className='text-2xl text-center'>SCHEDULES</h2>
                 {/* Render Lich chieu cua phim */}
                 <div className='movie_schedule_container rounded-lg detail_container'>
