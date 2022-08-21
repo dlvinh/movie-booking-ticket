@@ -13,7 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Detail from './pages/Detail/Detail';
 import Checkout from './pages/Checkout/Checkout';
 // import CheckoutTemplate from './templates/HomeTemplate/CheckoutTemplate/CheckoutTemplate';
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { LoginTemplate } from './templates/LoginTemplate/LoginTemplate';
 import LoadingAnimation from './util/Loading/LoadingAnimation';
 import { AdminTemplate } from './templates/AdminTemplate/AdminTemplate';
@@ -28,6 +28,8 @@ import UserManagement from './pages/Admin/UserManagement/UserManagement';
 import EditUser from './pages/Admin/UserManagement/EditUser';
 import Profile from './pages/Admin/UserManagement/Profile';
 import './css/styles.css'
+import { useDispatch } from 'react-redux';
+import { SHOW_LOADING_ACTION } from './redux/actions/LoadingAction,';
 // NOTE: lazy load cua CheckoutTemplate this CheckoutTemplate can phai export default
 const CheckoutTemplate = lazy(() => import("./templates/CheckoutTemplate/CheckoutTemplate"));
 // DIEU HUONG CAC THANH CONG CU ROUTE TOI CAC PAGE KHAC
@@ -42,7 +44,7 @@ function App() {
         <Switch>
           {/* ROUTE TO HOME COMPONENT */}
           <HomeTemplate exact path="/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
-          <HomeTemplate exact path="/home" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
+          <HomeTemplate exact path="/" abc="restProps day ne" DestinationComponent={Home}></HomeTemplate>
           {/* ADMIN */}
           <AdminTemplate exact path='/admin' DestinationComponent={UserManagement}></AdminTemplate>
           <AdminTemplate exact path='/admin/users' DestinationComponent={UserManagement} ></AdminTemplate>
@@ -74,10 +76,6 @@ function App() {
           <Suspense fallback={<h1>LOADING...</h1>}>
             <CheckoutTemplate exact path='/checkout/:maLichChieu' DestinationComponent={Checkout} ></CheckoutTemplate>
           </Suspense>
-
-
-
-
         </Switch>
 
       </Router>

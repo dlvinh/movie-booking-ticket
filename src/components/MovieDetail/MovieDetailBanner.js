@@ -4,8 +4,6 @@ import { NavLink } from 'react-router-dom';
 import { Rate } from 'antd';
 export default function MovieDetailBanner(props) {
     const filmDetail = props.movieItem;
-    console.log("detailBanner",filmDetail);
-    const [moreDes, setMoreDes] = useState(false);
     const backGroundStyle = {
         backgroundImage: `url(${filmDetail?.hinhAnh})`,
         backgroundSize: 'cover',
@@ -20,7 +18,6 @@ export default function MovieDetailBanner(props) {
         borderRadius: "10px"
     }
     const renderDescription = (string) => {
-        let newString = ""
             if (string?.length > 100) {
                return <>{string?.substring(0, 200)} ...</> ;
             }
@@ -42,16 +39,6 @@ export default function MovieDetailBanner(props) {
                             <Rate  allowHalf disabled defaultValue={filmDetail?.danhGia /2} />
                         </div>
                     </div>
-                
-                {/* <div className='col-span-4 flex justify-center items-center'  >
-                    <div className={`c100 big p${filmDetail?.danhGia * 10}`}>
-                        <span>{filmDetail?.danhGia * 10} %</span>
-                        <div className="slice">
-                            <div className="bar"></div>
-                            <div className="fill"></div>
-                        </div>
-                    </div>
-                </div> */}
             </div>
         </div>
     )

@@ -57,13 +57,12 @@ export default function CarouselLayout() {
           </div>
         </div>
       </div>
-
     })
 
   }
 
   return (
-    <Carousel >
+    <Carousel>
       {renderBanner()}
     </Carousel>
   )

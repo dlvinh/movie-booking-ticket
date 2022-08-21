@@ -1,0 +1,53 @@
+.center-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}
+.center-section{
+    min-width: 35%;
+    padding: 4rem;
+    background: rgba(255, 255, 255, 0.11);
+border-radius: 16px;
+box-shadow: 0 4px 30px #fe019a;
+backdrop-filter: blur(5px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid #fe019a;
+}
+.button-hover-efx{
+    background-color: white;
+    color: black;
+    overflow: hidden;
+    position: relative;
+    transition: .2s transform ease-in-out;
+  
+    z-index: 0;
+}
+.button-hover-efx:hover{
+    transform: scale(1.1);
+}
+.button-hover-efx::after{
+    background-color: #fe019a;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 110%;
+    position: absolute;
+    left: 0;
+    top:0;
+    transform: translate(-130%,0) skew(60deg);
+    transform-origin: top left;
+    transition: .2s transform ease-out;
+    z-index: -1;
+    
+}
+.button-hover-efx:hover::after{
+    transform: translate(-5%,0);
+}
+
+@media screen and (max-width:1380px) {
+    .button-hover-efx::after{
+        transform: translate(-130%,0) skew(30deg);
+    }
+}

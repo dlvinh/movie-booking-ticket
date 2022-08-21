@@ -14,7 +14,6 @@ function HomeMenu(props) {
     const ref = useRef();
 
     useEffect(()=>{
-        console.log(ref.current.clientWidth);
         if (ref.current.clientWidth < 1200){
             setWidthState("md");
         }
@@ -22,10 +21,10 @@ function HomeMenu(props) {
             // ref.current.offsetWidth = window.innerWidth;
            // console.log(ref.current.clientWidth)
             if (ref.current.clientWidth < 1200){
-                console.log("md")
+                // console.log("md")
                 setWidthState("md");
             }else{
-                console.log("xl")
+                // console.log("xl")
                 setWidthState("xl")
             }
         }
